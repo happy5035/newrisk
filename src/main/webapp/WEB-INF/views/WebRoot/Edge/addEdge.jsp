@@ -85,7 +85,6 @@ $.ajax({
 		$("#emersub").html(data);
 	}});
 }); 
-
 $( "#emername" ).change(function(){
 	$.ajax({
 		type: "POST",
@@ -93,37 +92,22 @@ $( "#emername" ).change(function(){
 		cache: false,
 		async: false,
 		success: function(data){
-			$(".subemer[name='subemer0']").html(data);
+			$("#subemer[name=subemer0]").html(data);
 			
 		}});
 	}); 
-
-$( "#subemer0" ).change(function(){
-	$.ajax({
-		type: "POST",
-		url: "findSubEmer?subemer0="+encodeURI(encodeURI($(this).val())),
-		cache: false,
-		async: false,
-		success: function(data){
-			$("#subemer1").html(data);
-		}});
-	});
-
-=======
-});
-$( "#Tab1" ).on("change","#subname",function(){         
+$( "#Tab1" ).on("change","#subemer",function(){         
 	 $.ajax({
 		type: "POST",
-		url: "findSubEmer?emername="+encodeURI(encodeURI($(this).val())),
+		url: "findSubEmer?emerid="+encodeURI(encodeURI($(this).val())),
 		cache: false,
 		async: false,
 		success: function(data){
-			$("#emersub1").html(data);
+			$("#subemer1[name=subemer1]").html(data);
 		}}); 
 	}); 
->>>>>>> a2dbe672a985e19bc99d45943d2d9d84b782f25c
-}); 
 
+});
 //风险清单项 
 var  i=0;
 function addRow(TabId){  
@@ -136,15 +120,10 @@ var newRow = table.insertRow(table.rows.length);
 var newCel1 = newRow.insertCell(0);
 var newCel2 = newRow.insertCell(1);
 
-<<<<<<< HEAD
-newCel1.innerHTML = "<select class='subemer' name='subemer0'><c:forEach var='item' items='${sublist}'><option value='${item.subname}'>${item.subname}</option></c:forEach></select>";
-newCel2.innerHTML = "<select class='subemer' name='subemer1'><c:forEach var='item' items='${sublist}'><option value='${item.subname}'>${item.subname}</option></c:forEach></select>";
-=======
-newCel1.innerHTML = "<select id='subname' ><c:forEach var='item' items='${emergencylist}'><option value='${item.emername}'>${item.emername}</option></c:forEach></select>"; 
-/* newCel1.innerHTML = "<input type='button' id='b1' value='click'>"; */
-newCel2.innerHTML = "<select id='subname1' ><c:forEach var='item' items='${emergencylist}'><option value='${item.emername}'>${item.emername}</option></c:forEach></select>";
->>>>>>> a2dbe672a985e19bc99d45943d2d9d84b782f25c
-// newCel5.innerHTML = "<input type=\"radio\" name=\"disasterLevel"+i+"\" id=\"disasterLevel"+i+"\" title=\"disasterLevel"+i+"\" value=\"C\"">"; 
+
+newCel1.innerHTML = "<select id='subemer' name='subemer0'><c:forEach var='item' items='${sublist}'><option value='${item.subname}'>${item.subname}</option></c:forEach></select>";
+newCel2.innerHTML = "<select id='subemer1' name='subemer1'><c:forEach var='item' items='${sublist}'><option value='${item.subname}'>${item.subname}</option></c:forEach></select>";
+
 i++;
 document.getElementById("length1").value = i;
 }  
