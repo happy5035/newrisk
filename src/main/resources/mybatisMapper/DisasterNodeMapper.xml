@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.risk.plan.dao.DisasterNodeMapper" >
+  <resultMap id="BaseResultMap" type="com.risk.plan.entity.DisasterNode" >
+    <id column="dnodeid" property="dnodeid" jdbcType="VARCHAR" />
+    <result column="disasterno" property="disasterno" jdbcType="VARCHAR" />
+    <result column="disastername" property="disastername" jdbcType="VARCHAR" />
+    <result column="disasterlevel" property="disasterlevel" jdbcType="VARCHAR" />
+    <result column="principal" property="principal" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dnodeid, disasterno, disastername, disasterlevel, principal, phone, note
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from disasternode
+    where dnodeid = #{dnodeid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from disasternode
+    where dnodeid = #{dnodeid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.risk.plan.entity.DisasterNode" >
+    insert into disasternode (dnodeid, disasterno, disastername, 
+      disasterlevel, principal, phone, 
+      note)
+    values (#{dnodeid,jdbcType=VARCHAR}, #{disasterno,jdbcType=VARCHAR}, #{disastername,jdbcType=VARCHAR}, 
+      #{disasterlevel,jdbcType=VARCHAR}, #{principal,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{note,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.risk.plan.entity.DisasterNode" >
+    insert into disasternode
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dnodeid != null" >
+        dnodeid,
+      </if>
+      <if test="disasterno != null" >
+        disasterno,
+      </if>
+      <if test="disastername != null" >
+        disastername,
+      </if>
+      <if test="disasterlevel != null" >
+        disasterlevel,
+      </if>
+      <if test="principal != null" >
+        principal,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dnodeid != null" >
+        #{dnodeid,jdbcType=VARCHAR},
+      </if>
+      <if test="disasterno != null" >
+        #{disasterno,jdbcType=VARCHAR},
+      </if>
+      <if test="disastername != null" >
+        #{disastername,jdbcType=VARCHAR},
+      </if>
+      <if test="disasterlevel != null" >
+        #{disasterlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="principal != null" >
+        #{principal,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.risk.plan.entity.DisasterNode" >
+    update disasternode
+    <set >
+      <if test="disasterno != null" >
+        disasterno = #{disasterno,jdbcType=VARCHAR},
+      </if>
+      <if test="disastername != null" >
+        disastername = #{disastername,jdbcType=VARCHAR},
+      </if>
+      <if test="disasterlevel != null" >
+        disasterlevel = #{disasterlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="principal != null" >
+        principal = #{principal,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dnodeid = #{dnodeid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.risk.plan.entity.DisasterNode" >
+    update disasternode
+    set disasterno = #{disasterno,jdbcType=VARCHAR},
+      disastername = #{disastername,jdbcType=VARCHAR},
+      disasterlevel = #{disasterlevel,jdbcType=VARCHAR},
+      principal = #{principal,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR}
+    where dnodeid = #{dnodeid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from disasternode
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+  </select>
+  <select id="findByParams" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from disasternode
+    <where>
+    <if test="disasterno != null" >
+      and  disasterno like #{disasterno,jdbcType=VARCHAR}
+      </if>
+      <if test="disastername != null" >
+      and  disastername like #{disastername,jdbcType=VARCHAR}
+      </if>
+      <if test="disasterlevel != null" >
+      and  disasterlevel like #{disasterlevel,jdbcType=VARCHAR}
+      </if>
+      <if test="principal != null" >
+      and  principal like #{principal,jdbcType=VARCHAR}
+      </if>
+      <if test="phone != null" >
+       and phone like #{phone,jdbcType=VARCHAR}
+      </if>
+      <if test="note != null" >
+      and  note like #{note,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+    <if test="pageSize != null and startNum != null" >
+      limit #{pageSize} offset #{startNum}
+    </if>
+  </select>
+  <select id="findByParamsCount" resultType="int" parameterType="map" >
+    select count(*) from disasternode
+    <where>
+    <if test="disasterno != null" >
+      and  disasterno like #{disasterno,jdbcType=VARCHAR}
+      </if>
+      <if test="disastername != null" >
+      and  disastername like #{disastername,jdbcType=VARCHAR}
+      </if>
+      <if test="disasterlevel != null" >
+      and  disasterlevel like #{disasterlevel,jdbcType=VARCHAR}
+      </if>
+      <if test="principal != null" >
+      and  principal like #{principal,jdbcType=VARCHAR}
+      </if>
+      <if test="phone != null" >
+       and phone like #{phone,jdbcType=VARCHAR}
+      </if>
+      <if test="note != null" >
+      and  note like #{note,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>

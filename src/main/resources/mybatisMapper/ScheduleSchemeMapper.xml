@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.risk.plan.dao.ScheduleSchemeMapper" >
+  <resultMap id="BaseResultMap" type="com.risk.plan.entity.ScheduleScheme" >
+    <id column="schemeid" property="schemeid" jdbcType="VARCHAR" />
+    <result column="emerid" property="emerid" jdbcType="VARCHAR" />
+    <result column="schemeno" property="schemeno" jdbcType="VARCHAR" />
+    <result column="schemename" property="schemename" jdbcType="VARCHAR" />
+    <result column="starttime" property="starttime" jdbcType="DATE" />
+    <result column="endtime" property="endtime" jdbcType="DATE" />
+    <result column="consumetime" property="consumetime" jdbcType="DATE" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    schemeid, emerid, schemeno, schemename, starttime, endtime, consumetime, note
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from schedulescheme
+    where schemeid = #{schemeid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from schedulescheme
+    where schemeid = #{schemeid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.risk.plan.entity.ScheduleScheme" >
+    insert into schedulescheme (schemeid, emerid, schemeno, 
+      schemename, starttime, endtime, 
+      consumetime, note)
+    values (#{schemeid,jdbcType=VARCHAR}, #{emerid,jdbcType=VARCHAR}, #{schemeno,jdbcType=VARCHAR}, 
+      #{schemename,jdbcType=VARCHAR}, #{starttime,jdbcType=DATE}, #{endtime,jdbcType=DATE}, 
+      #{consumetime,jdbcType=DATE}, #{note,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.risk.plan.entity.ScheduleScheme" >
+    insert into schedulescheme
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="schemeid != null" >
+        schemeid,
+      </if>
+      <if test="emerid != null" >
+        emerid,
+      </if>
+      <if test="schemeno != null" >
+        schemeno,
+      </if>
+      <if test="schemename != null" >
+        schemename,
+      </if>
+      <if test="starttime != null" >
+        starttime,
+      </if>
+      <if test="endtime != null" >
+        endtime,
+      </if>
+      <if test="consumetime != null" >
+        consumetime,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="schemeid != null" >
+        #{schemeid,jdbcType=VARCHAR},
+      </if>
+      <if test="emerid != null" >
+        #{emerid,jdbcType=VARCHAR},
+      </if>
+      <if test="schemeno != null" >
+        #{schemeno,jdbcType=VARCHAR},
+      </if>
+      <if test="schemename != null" >
+        #{schemename,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=DATE},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=DATE},
+      </if>
+      <if test="consumetime != null" >
+        #{consumetime,jdbcType=DATE},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.risk.plan.entity.ScheduleScheme" >
+    update schedulescheme
+    <set >
+      <if test="emerid != null" >
+        emerid = #{emerid,jdbcType=VARCHAR},
+      </if>
+      <if test="schemeno != null" >
+        schemeno = #{schemeno,jdbcType=VARCHAR},
+      </if>
+      <if test="schemename != null" >
+        schemename = #{schemename,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        starttime = #{starttime,jdbcType=DATE},
+      </if>
+      <if test="endtime != null" >
+        endtime = #{endtime,jdbcType=DATE},
+      </if>
+      <if test="consumetime != null" >
+        consumetime = #{consumetime,jdbcType=DATE},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where schemeid = #{schemeid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.risk.plan.entity.ScheduleScheme" >
+    update schedulescheme
+    set emerid = #{emerid,jdbcType=VARCHAR},
+      schemeno = #{schemeno,jdbcType=VARCHAR},
+      schemename = #{schemename,jdbcType=VARCHAR},
+      starttime = #{starttime,jdbcType=DATE},
+      endtime = #{endtime,jdbcType=DATE},
+      consumetime = #{consumetime,jdbcType=DATE},
+      note = #{note,jdbcType=VARCHAR}
+    where schemeid = #{schemeid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from schedulescheme
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+  </select>
+  <select id="findByParams" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from schedulescheme
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+    <if test="pageSize != null and startNum != null" >
+      limit #{pageSize} offset #{startNum}
+    </if>
+  </select>
+  <select id="findByParamsCount" resultType="int" parameterType="map" >
+    select count(*) from schedulescheme
+  </select>
+</mapper>

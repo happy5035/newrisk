@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.risk.plan.dao.PathMapper" >
+  <resultMap id="BaseResultMap" type="com.risk.plan.entity.Path" >
+    <id column="pathid" property="pathid" jdbcType="VARCHAR" />
+    <result column="loadorno" property="loadorno" jdbcType="VARCHAR" />
+    <result column="pathserialnum" property="pathserialnum" jdbcType="INTEGER" />
+    <result column="edgeid" property="edgeid" jdbcType="VARCHAR" />
+    <result column="taskid" property="taskid" jdbcType="VARCHAR" />
+    <result column="secondnodeid" property="secondnodeid" jdbcType="VARCHAR" />
+    <result column="firstnodeid" property="firstnodeid" jdbcType="VARCHAR" />
+    <result column="length" property="length" jdbcType="VARCHAR" />
+    <association property="edge" javaType="com.risk.plan.entity.Edge">
+	    <id column="edgeid" property="edgeid" jdbcType="VARCHAR" />
+	    <result column="secondnodeid" property="secondnodeid" jdbcType="VARCHAR" />
+	    <result column="firstnodeid" property="firstnodeid" jdbcType="VARCHAR" />
+	    <result column="edgeno" property="edgeno" jdbcType="VARCHAR" />
+	    <result column="edgename" property="edgename" jdbcType="VARCHAR" />
+	    <result column="edgetype" property="edgetype" jdbcType="VARCHAR" />
+	    <result column="edgetypet" property="edgetypet" jdbcType="VARCHAR" />
+	    <result column="length" property="length" jdbcType="VARCHAR" />
+	    <result column="note" property="note" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pathid, loadorno, pathserialnum, edgeid, taskid, secondnodeid, firstnodeid, length
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from path
+    where pathid = #{pathid,jdbcType=VARCHAR}
+  </select>
+  <select id="findByTaskId" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select* from path pa,edge e 
+  	where pa.taskid=#{taskid,jdbcType=VARCHAR} 
+  	and pa.edgeid=e.edgeid
+  	order by pa.pathserialnum
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from path
+    where pathid = #{pathid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.risk.plan.entity.Path" >
+    insert into path (pathid, loadorno, pathserialnum, 
+      edgeid, taskid, secondnodeid, 
+      firstnodeid, length)
+    values (#{pathid,jdbcType=VARCHAR}, #{loadorno,jdbcType=VARCHAR}, #{pathserialnum,jdbcType=INTEGER}, 
+      #{edgeid,jdbcType=VARCHAR}, #{taskid,jdbcType=VARCHAR}, #{secondnodeid,jdbcType=VARCHAR}, 
+      #{firstnodeid,jdbcType=VARCHAR}, #{length,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.risk.plan.entity.Path" >
+    insert into path
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pathid != null" >
+        pathid,
+      </if>
+      <if test="loadorno != null" >
+        loadorno,
+      </if>
+      <if test="pathserialnum != null" >
+        pathserialnum,
+      </if>
+      <if test="edgeid != null" >
+        edgeid,
+      </if>
+      <if test="taskid != null" >
+        taskid,
+      </if>
+      <if test="secondnodeid != null" >
+        secondnodeid,
+      </if>
+      <if test="firstnodeid != null" >
+        firstnodeid,
+      </if>
+      <if test="length != null" >
+        length,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pathid != null" >
+        #{pathid,jdbcType=VARCHAR},
+      </if>
+      <if test="loadorno != null" >
+        #{loadorno,jdbcType=VARCHAR},
+      </if>
+      <if test="pathserialnum != null" >
+        #{pathserialnum,jdbcType=INTEGER},
+      </if>
+      <if test="edgeid != null" >
+        #{edgeid,jdbcType=VARCHAR},
+      </if>
+      <if test="taskid != null" >
+        #{taskid,jdbcType=VARCHAR},
+      </if>
+      <if test="secondnodeid != null" >
+        #{secondnodeid,jdbcType=VARCHAR},
+      </if>
+      <if test="firstnodeid != null" >
+        #{firstnodeid,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null" >
+        #{length,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.risk.plan.entity.Path" >
+    update path
+    <set >
+      <if test="loadorno != null" >
+        loadorno = #{loadorno,jdbcType=VARCHAR},
+      </if>
+      <if test="pathserialnum != null" >
+        pathserialnum = #{pathserialnum,jdbcType=INTEGER},
+      </if>
+      <if test="edgeid != null" >
+        edgeid = #{edgeid,jdbcType=VARCHAR},
+      </if>
+      <if test="taskid != null" >
+        taskid = #{taskid,jdbcType=VARCHAR},
+      </if>
+      <if test="secondnodeid != null" >
+        secondnodeid = #{secondnodeid,jdbcType=VARCHAR},
+      </if>
+      <if test="firstnodeid != null" >
+        firstnodeid = #{firstnodeid,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null" >
+        length = #{length,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pathid = #{pathid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.risk.plan.entity.Path" >
+    update path
+    set loadorno = #{loadorno,jdbcType=VARCHAR},
+      pathserialnum = #{pathserialnum,jdbcType=INTEGER},
+      edgeid = #{edgeid,jdbcType=VARCHAR},
+      taskid = #{taskid,jdbcType=VARCHAR},
+      secondnodeid = #{secondnodeid,jdbcType=VARCHAR},
+      firstnodeid = #{firstnodeid,jdbcType=VARCHAR},
+      length = #{length,jdbcType=VARCHAR}
+    where pathid = #{pathid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from path
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+  </select>
+  <select id="findByParams" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from path
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+    <if test="pageSize != null and startNum != null" >
+      limit #{pageSize} offset #{startNum}
+    </if>
+  </select>
+  <select id="findByParamsCount" resultType="int" parameterType="map" >
+    select count(*) from path
+  </select>
+</mapper>

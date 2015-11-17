@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.risk.plan.dao.ColloRatioRelMapper" >
+  <resultMap id="BaseResultMap" type="com.risk.plan.entity.ColloRatioRel" >
+    <id column="colloratiorelid" property="colloratiorelid" jdbcType="VARCHAR" />
+    <result column="ownratio" property="ownratio" jdbcType="VARCHAR" />
+    <result column="loadnum" property="loadnum" jdbcType="VARCHAR" />
+    <result column="goodsid" property="goodsid" jdbcType="VARCHAR" />
+    <result column="colloratioid" property="colloratioid" jdbcType="CHAR" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    colloratiorelid, ownratio, loadnum, goodsid, colloratioid, note
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from colloratiorel
+    where colloratiorelid = #{colloratiorelid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from colloratiorel
+    where colloratiorelid = #{colloratiorelid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.risk.plan.entity.ColloRatioRel" >
+    insert into colloratiorel (colloratiorelid, ownratio, loadnum, 
+      goodsid, colloratioid, note
+      )
+    values (#{colloratiorelid,jdbcType=VARCHAR}, #{ownratio,jdbcType=VARCHAR}, #{loadnum,jdbcType=VARCHAR}, 
+      #{goodsid,jdbcType=VARCHAR}, #{colloratioid,jdbcType=CHAR}, #{note,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.risk.plan.entity.ColloRatioRel" >
+    insert into colloratiorel
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="colloratiorelid != null" >
+        colloratiorelid,
+      </if>
+      <if test="ownratio != null" >
+        ownratio,
+      </if>
+      <if test="loadnum != null" >
+        loadnum,
+      </if>
+      <if test="goodsid != null" >
+        goodsid,
+      </if>
+      <if test="colloratioid != null" >
+        colloratioid,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="colloratiorelid != null" >
+        #{colloratiorelid,jdbcType=VARCHAR},
+      </if>
+      <if test="ownratio != null" >
+        #{ownratio,jdbcType=VARCHAR},
+      </if>
+      <if test="loadnum != null" >
+        #{loadnum,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsid != null" >
+        #{goodsid,jdbcType=VARCHAR},
+      </if>
+      <if test="colloratioid != null" >
+        #{colloratioid,jdbcType=CHAR},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.risk.plan.entity.ColloRatioRel" >
+    update colloratiorel
+    <set >
+      <if test="ownratio != null" >
+        ownratio = #{ownratio,jdbcType=VARCHAR},
+      </if>
+      <if test="loadnum != null" >
+        loadnum = #{loadnum,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsid != null" >
+        goodsid = #{goodsid,jdbcType=VARCHAR},
+      </if>
+      <if test="colloratioid != null" >
+        colloratioid = #{colloratioid,jdbcType=CHAR},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where colloratiorelid = #{colloratiorelid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.risk.plan.entity.ColloRatioRel" >
+    update colloratiorel
+    set ownratio = #{ownratio,jdbcType=VARCHAR},
+      loadnum = #{loadnum,jdbcType=VARCHAR},
+      goodsid = #{goodsid,jdbcType=VARCHAR},
+      colloratioid = #{colloratioid,jdbcType=CHAR},
+      note = #{note,jdbcType=VARCHAR}
+    where colloratiorelid = #{colloratiorelid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from colloratiorel
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+  </select>
+  <select id="findByParams" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from colloratiorel
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+    <if test="pageSize != null and startNum != null" >
+      limit #{pageSize} offset #{startNum}
+    </if>
+  </select>
+  <select id="findByParamsCount" resultType="int" parameterType="map" >
+    select count(*) from colloratiorel
+  </select>
+</mapper>

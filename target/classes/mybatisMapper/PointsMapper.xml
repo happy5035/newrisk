@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.risk.plan.dao.PointsMapper" >
+  <resultMap id="BaseResultMap" type="com.risk.plan.entity.Points" >
+    <id column="pointsid" property="pointsid" jdbcType="VARCHAR" />
+    <result column="edgeid" property="edgeid" jdbcType="VARCHAR" />
+    <result column="lat" property="lat" jdbcType="VARCHAR" />
+    <result column="lng" property="lng" jdbcType="VARCHAR" />
+    <result column="serialnum" property="serialnum" jdbcType="INTEGER" />
+    <association property="edge" javaType="com.risk.plan.entity.Edge">
+	    <id column="edgeid" property="edgeid" jdbcType="VARCHAR" />
+	    <result column="secondnodeid" property="secondnodeid" jdbcType="VARCHAR" />
+	    <result column="firstnodeid" property="firstnodeid" jdbcType="VARCHAR" />
+	    <result column="edgeno" property="edgeno" jdbcType="VARCHAR" />
+	    <result column="edgename" property="edgename" jdbcType="VARCHAR" />
+	    <result column="edgetype" property="edgetype" jdbcType="VARCHAR" />
+	    <result column="edgetypet" property="edgetypet" jdbcType="VARCHAR" />
+	    <result column="length" property="length" jdbcType="VARCHAR" />
+	    <result column="note" property="note" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pointsid, edgeid, lat, lng, serialnum
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from points
+    where pointsid = #{pointsid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByEdgeId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  select * from points po,edge e where po.edgeid=#{edgeid,jdbcType=VARCHAR} 
+  and e.edgeid=po.edgeid 
+  order by po.serialnum
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from points
+    where pointsid = #{pointsid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.risk.plan.entity.Points" >
+    insert into points (pointsid, edgeid, lat, 
+      lng, serialnum)
+    values (#{pointsid,jdbcType=VARCHAR}, #{edgeid,jdbcType=VARCHAR}, #{lat,jdbcType=VARCHAR}, 
+      #{lng,jdbcType=VARCHAR}, #{serialnum,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.risk.plan.entity.Points" >
+    insert into points
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pointsid != null" >
+        pointsid,
+      </if>
+      <if test="edgeid != null" >
+        edgeid,
+      </if>
+      <if test="lat != null" >
+        lat,
+      </if>
+      <if test="lng != null" >
+        lng,
+      </if>
+      <if test="serialnum != null" >
+        serialnum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pointsid != null" >
+        #{pointsid,jdbcType=VARCHAR},
+      </if>
+      <if test="edgeid != null" >
+        #{edgeid,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null" >
+        #{lng,jdbcType=VARCHAR},
+      </if>
+      <if test="serialnum != null" >
+        #{serialnum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.risk.plan.entity.Points" >
+    update points
+    <set >
+      <if test="edgeid != null" >
+        edgeid = #{edgeid,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        lat = #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null" >
+        lng = #{lng,jdbcType=VARCHAR},
+      </if>
+      <if test="serialnum != null" >
+        serialnum = #{serialnum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where pointsid = #{pointsid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.risk.plan.entity.Points" >
+    update points
+    set edgeid = #{edgeid,jdbcType=VARCHAR},
+      lat = #{lat,jdbcType=VARCHAR},
+      lng = #{lng,jdbcType=VARCHAR},
+      serialnum = #{serialnum,jdbcType=INTEGER}
+    where pointsid = #{pointsid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from points
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+  </select>
+  <select id="findByParams" resultMap="BaseResultMap" parameterType="map" >
+    select * from points p,edge e  
+    <where>
+    and p.edgeid=e.edgeid 
+     <if test="edgeid != null" >
+      and  p.edgeid = #{edgeid,jdbcType=VARCHAR}
+      </if>
+      <if test="lat != null" >
+      and  p.lat = #{lat,jdbcType=VARCHAR}
+      </if>
+      <if test="lng != null" >
+      and  p.lng = #{lng,jdbcType=VARCHAR}
+      </if>
+      <if test="serialnum != null" >
+      and  p.serialnum = #{serialnum,jdbcType=INTEGER}
+      </if>
+    </where>
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+    <if test="pageSize != null and startNum != null" >
+      limit #{pageSize} offset #{startNum}
+    </if>
+  </select>
+  <select id="findByParamsCount" resultType="int" parameterType="map" >
+    select count(*) from points p,edge e where 
+   <where>
+    and p.edgeid=e.edgeid 
+     <if test="edgeid != null" >
+      and  p.edgeid = #{edgeid,jdbcType=VARCHAR}
+      </if>
+      <if test="lat != null" >
+      and  p.lat = #{lat,jdbcType=VARCHAR}
+      </if>
+      <if test="lng != null" >
+      and  p.lng = #{lng,jdbcType=VARCHAR}
+      </if>
+      <if test="serialnum != null" >
+      and  p.serialnum = #{serialnum,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+</mapper>

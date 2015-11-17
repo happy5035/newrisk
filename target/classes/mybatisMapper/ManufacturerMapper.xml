@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.risk.plan.dao.ManufacturerMapper" >
+  <resultMap id="BaseResultMap" type="com.risk.plan.entity.Manufacturer" >
+    <id column="manufacturerid" property="manufacturerid" jdbcType="VARCHAR" />
+    <result column="manuname" property="manuname" jdbcType="VARCHAR" />
+    <result column="manufactureradd" property="manufactureradd" jdbcType="VARCHAR" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="legalname" property="legalname" jdbcType="VARCHAR" />
+    <result column="certitype" property="certitype" jdbcType="VARCHAR" />
+    <result column="certicode" property="certicode" jdbcType="VARCHAR" />
+    <result column="contactname" property="contactname" jdbcType="VARCHAR" />
+    <result column="contacttel" property="contacttel" jdbcType="VARCHAR" />
+    <result column="website" property="website" jdbcType="VARCHAR" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+    <result column="areaid" property="areaid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    manufacturerid, manuname, manufactureradd, tel, email, legalname, certitype, certicode, 
+    contactname, contacttel, website, note, areaid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from manufacturer
+    where manufacturerid = #{manufacturerid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from manufacturer
+    where manufacturerid = #{manufacturerid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.risk.plan.entity.Manufacturer" >
+    insert into manufacturer (manufacturerid, manuname, manufactureradd, 
+      tel, email, legalname, 
+      certitype, certicode, contactname, 
+      contacttel, website, note, 
+      areaid)
+    values (#{manufacturerid,jdbcType=VARCHAR}, #{manuname,jdbcType=VARCHAR}, #{manufactureradd,jdbcType=VARCHAR}, 
+      #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{legalname,jdbcType=VARCHAR}, 
+      #{certitype,jdbcType=VARCHAR}, #{certicode,jdbcType=VARCHAR}, #{contactname,jdbcType=VARCHAR}, 
+      #{contacttel,jdbcType=VARCHAR}, #{website,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}, 
+      #{areaid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.risk.plan.entity.Manufacturer" >
+    insert into manufacturer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="manufacturerid != null" >
+        manufacturerid,
+      </if>
+      <if test="manuname != null" >
+        manuname,
+      </if>
+      <if test="manufactureradd != null" >
+        manufactureradd,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="legalname != null" >
+        legalname,
+      </if>
+      <if test="certitype != null" >
+        certitype,
+      </if>
+      <if test="certicode != null" >
+        certicode,
+      </if>
+      <if test="contactname != null" >
+        contactname,
+      </if>
+      <if test="contacttel != null" >
+        contacttel,
+      </if>
+      <if test="website != null" >
+        website,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+      <if test="areaid != null" >
+        areaid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="manufacturerid != null" >
+        #{manufacturerid,jdbcType=VARCHAR},
+      </if>
+      <if test="manuname != null" >
+        #{manuname,jdbcType=VARCHAR},
+      </if>
+      <if test="manufactureradd != null" >
+        #{manufactureradd,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="legalname != null" >
+        #{legalname,jdbcType=VARCHAR},
+      </if>
+      <if test="certitype != null" >
+        #{certitype,jdbcType=VARCHAR},
+      </if>
+      <if test="certicode != null" >
+        #{certicode,jdbcType=VARCHAR},
+      </if>
+      <if test="contactname != null" >
+        #{contactname,jdbcType=VARCHAR},
+      </if>
+      <if test="contacttel != null" >
+        #{contacttel,jdbcType=VARCHAR},
+      </if>
+      <if test="website != null" >
+        #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="areaid != null" >
+        #{areaid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.risk.plan.entity.Manufacturer" >
+    update manufacturer
+    <set >
+      <if test="manuname != null" >
+        manuname = #{manuname,jdbcType=VARCHAR},
+      </if>
+      <if test="manufactureradd != null" >
+        manufactureradd = #{manufactureradd,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="legalname != null" >
+        legalname = #{legalname,jdbcType=VARCHAR},
+      </if>
+      <if test="certitype != null" >
+        certitype = #{certitype,jdbcType=VARCHAR},
+      </if>
+      <if test="certicode != null" >
+        certicode = #{certicode,jdbcType=VARCHAR},
+      </if>
+      <if test="contactname != null" >
+        contactname = #{contactname,jdbcType=VARCHAR},
+      </if>
+      <if test="contacttel != null" >
+        contacttel = #{contacttel,jdbcType=VARCHAR},
+      </if>
+      <if test="website != null" >
+        website = #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="areaid != null" >
+        areaid = #{areaid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where manufacturerid = #{manufacturerid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.risk.plan.entity.Manufacturer" >
+    update manufacturer
+    set manuname = #{manuname,jdbcType=VARCHAR},
+      manufactureradd = #{manufactureradd,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      legalname = #{legalname,jdbcType=VARCHAR},
+      certitype = #{certitype,jdbcType=VARCHAR},
+      certicode = #{certicode,jdbcType=VARCHAR},
+      contactname = #{contactname,jdbcType=VARCHAR},
+      contacttel = #{contacttel,jdbcType=VARCHAR},
+      website = #{website,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR},
+      areaid = #{areaid,jdbcType=VARCHAR}
+    where manufacturerid = #{manufacturerid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from manufacturer
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+  </select>
+  <select id="findByParams" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from manufacturer
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+    <if test="pageSize != null and startNum != null" >
+      limit #{pageSize} offset #{startNum}
+    </if>
+  </select>
+  <select id="findByParamsCount" resultType="int" parameterType="map" >
+    select count(*) from manufacturer
+  </select>
+</mapper>

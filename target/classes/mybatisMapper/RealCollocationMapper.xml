@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.risk.plan.dao.RealCollocationMapper" >
+  <resultMap id="BaseResultMap" type="com.risk.plan.entity.RealCollocation" >
+    <id column="realcollocationid" property="realcollocationid" jdbcType="VARCHAR" />
+    <result column="realcollocationname" property="realcollocationname" jdbcType="VARCHAR" />
+    <result column="realkindnum" property="realkindnum" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    realcollocationid, realcollocationname, realkindnum
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from realcollocation
+    where realcollocationid = #{realcollocationid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from realcollocation
+    where realcollocationid = #{realcollocationid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.risk.plan.entity.RealCollocation" >
+    insert into realcollocation (realcollocationid, realcollocationname, 
+      realkindnum)
+    values (#{realcollocationid,jdbcType=VARCHAR}, #{realcollocationname,jdbcType=VARCHAR}, 
+      #{realkindnum,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.risk.plan.entity.RealCollocation" >
+    insert into realcollocation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="realcollocationid != null" >
+        realcollocationid,
+      </if>
+      <if test="realcollocationname != null" >
+        realcollocationname,
+      </if>
+      <if test="realkindnum != null" >
+        realkindnum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="realcollocationid != null" >
+        #{realcollocationid,jdbcType=VARCHAR},
+      </if>
+      <if test="realcollocationname != null" >
+        #{realcollocationname,jdbcType=VARCHAR},
+      </if>
+      <if test="realkindnum != null" >
+        #{realkindnum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.risk.plan.entity.RealCollocation" >
+    update realcollocation
+    <set >
+      <if test="realcollocationname != null" >
+        realcollocationname = #{realcollocationname,jdbcType=VARCHAR},
+      </if>
+      <if test="realkindnum != null" >
+        realkindnum = #{realkindnum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where realcollocationid = #{realcollocationid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.risk.plan.entity.RealCollocation" >
+    update realcollocation
+    set realcollocationname = #{realcollocationname,jdbcType=VARCHAR},
+      realkindnum = #{realkindnum,jdbcType=VARCHAR}
+    where realcollocationid = #{realcollocationid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from realcollocation
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+  </select>
+  <select id="findByParams" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from realcollocation
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+    <if test="pageSize != null and startNum != null" >
+      limit #{pageSize} offset #{startNum}
+    </if>
+  </select>
+  <select id="findByParamsCount" resultType="int" parameterType="map" >
+    select count(*) from realcollocation
+  </select>
+</mapper>

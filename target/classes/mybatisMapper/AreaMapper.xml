@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.risk.plan.dao.AreaMapper" >
+  <resultMap id="BaseResultMap" type="com.risk.plan.entity.Area" >
+    <id column="areaid" property="areaid" jdbcType="VARCHAR" />
+    <result column="parareaid" property="parareaid" jdbcType="VARCHAR" />
+    <result column="areaname" property="areaname" jdbcType="VARCHAR" />
+    <result column="arealevel" property="arealevel" jdbcType="VARCHAR" />
+    <result column="postalcode" property="postalcode" jdbcType="VARCHAR" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    areaid, parareaid, areaname, arealevel, postalcode, note
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from area
+    where areaid = #{areaid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from area
+    where areaid = #{areaid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.risk.plan.entity.Area" >
+    insert into area (areaid, parareaid, areaname, 
+      arealevel, postalcode, note
+      )
+    values (#{areaid,jdbcType=VARCHAR}, #{parareaid,jdbcType=VARCHAR}, #{areaname,jdbcType=VARCHAR}, 
+      #{arealevel,jdbcType=VARCHAR}, #{postalcode,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.risk.plan.entity.Area" >
+    insert into area
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="areaid != null" >
+        areaid,
+      </if>
+      <if test="parareaid != null" >
+        parareaid,
+      </if>
+      <if test="areaname != null" >
+        areaname,
+      </if>
+      <if test="arealevel != null" >
+        arealevel,
+      </if>
+      <if test="postalcode != null" >
+        postalcode,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="areaid != null" >
+        #{areaid,jdbcType=VARCHAR},
+      </if>
+      <if test="parareaid != null" >
+        #{parareaid,jdbcType=VARCHAR},
+      </if>
+      <if test="areaname != null" >
+        #{areaname,jdbcType=VARCHAR},
+      </if>
+      <if test="arealevel != null" >
+        #{arealevel,jdbcType=VARCHAR},
+      </if>
+      <if test="postalcode != null" >
+        #{postalcode,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.risk.plan.entity.Area" >
+    update area
+    <set >
+      <if test="parareaid != null" >
+        parareaid = #{parareaid,jdbcType=VARCHAR},
+      </if>
+      <if test="areaname != null" >
+        areaname = #{areaname,jdbcType=VARCHAR},
+      </if>
+      <if test="arealevel != null" >
+        arealevel = #{arealevel,jdbcType=VARCHAR},
+      </if>
+      <if test="postalcode != null" >
+        postalcode = #{postalcode,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where areaid = #{areaid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.risk.plan.entity.Area" >
+    update area
+    set parareaid = #{parareaid,jdbcType=VARCHAR},
+      areaname = #{areaname,jdbcType=VARCHAR},
+      arealevel = #{arealevel,jdbcType=VARCHAR},
+      postalcode = #{postalcode,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR}
+    where areaid = #{areaid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from area
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+  </select>
+  <select id="findByParams" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from area
+    <where>
+    <if test="parareaid != null" >
+      and  parareaid like #{parareaid,jdbcType=VARCHAR}
+      </if>
+      <if test="areaname != null" >
+       and areaname like #{areaname,jdbcType=VARCHAR}
+      </if>
+      <if test="arealevel != null" >
+       and arealevel like #{arealevel,jdbcType=VARCHAR}
+      </if>
+      <if test="postalcode != null" >
+       and postalcode like #{postalcode,jdbcType=VARCHAR}
+      </if>
+      <if test="note != null" >
+       and note like #{note,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+    <if test="pageSize != null and startNum != null" >
+      limit #{pageSize} offset #{startNum}
+    </if>
+  </select>
+  <select id="findByParamsCount" resultType="int" parameterType="map" >
+    select count(*) from area
+    <where>
+    <if test="parareaid != null" >
+      and  parareaid like #{parareaid,jdbcType=VARCHAR}
+      </if>
+      <if test="areaname != null" >
+       and areaname like #{areaname,jdbcType=VARCHAR}
+      </if>
+      <if test="arealevel != null" >
+       and arealevel like #{arealevel,jdbcType=VARCHAR}
+      </if>
+      <if test="postalcode != null" >
+       and postalcode like #{postalcode,jdbcType=VARCHAR}
+      </if>
+      <if test="note != null" >
+       and note like #{note,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.risk.plan.dao.EventsMapper" >
+  <resultMap id="BaseResultMap" type="com.risk.plan.entity.Events" >
+    <id column="eventid" property="eventid" jdbcType="CHAR" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+    <result column="eventtype" property="eventtype" jdbcType="VARCHAR" />
+    <result column="happentime" property="happentime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    eventid, note, eventtype, happentime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from events
+    where eventid = #{eventid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from events
+    where eventid = #{eventid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.risk.plan.entity.Events" >
+    insert into events (eventid, note, eventtype, 
+      happentime)
+    values (#{eventid,jdbcType=CHAR}, #{note,jdbcType=VARCHAR}, #{eventtype,jdbcType=VARCHAR}, 
+      #{happentime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.risk.plan.entity.Events" >
+    insert into events
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="eventid != null" >
+        eventid,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+      <if test="eventtype != null" >
+        eventtype,
+      </if>
+      <if test="happentime != null" >
+        happentime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="eventid != null" >
+        #{eventid,jdbcType=CHAR},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="eventtype != null" >
+        #{eventtype,jdbcType=VARCHAR},
+      </if>
+      <if test="happentime != null" >
+        #{happentime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.risk.plan.entity.Events" >
+    update events
+    <set >
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="eventtype != null" >
+        eventtype = #{eventtype,jdbcType=VARCHAR},
+      </if>
+      <if test="happentime != null" >
+        happentime = #{happentime,jdbcType=DATE},
+      </if>
+    </set>
+    where eventid = #{eventid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.risk.plan.entity.Events" >
+    update events
+    set note = #{note,jdbcType=VARCHAR},
+      eventtype = #{eventtype,jdbcType=VARCHAR},
+      happentime = #{happentime,jdbcType=DATE}
+    where eventid = #{eventid,jdbcType=CHAR}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from events
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+  </select>
+  <select id="findByParams" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from events
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+    <if test="pageSize != null and startNum != null" >
+      limit #{pageSize} offset #{startNum}
+    </if>
+  </select>
+  <select id="findByParamsCount" resultType="int" parameterType="map" >
+    select count(*) from events
+  </select>
+</mapper>

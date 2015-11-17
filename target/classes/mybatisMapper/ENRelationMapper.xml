@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.risk.plan.dao.ENRelationMapper" >
+  <resultMap id="BaseResultMap" type="com.risk.plan.entity.ENRelation" >
+    <id column="enrelationid" property="enrelationid" jdbcType="VARCHAR" />
+    <result column="nodeid" property="nodeid" jdbcType="VARCHAR" />
+    <result column="emerid" property="emerid" jdbcType="VARCHAR" />
+    <association property="emergency" javaType="com.risk.plan.entity.Emergency">
+    <id column="emerid" property="emerid" jdbcType="VARCHAR" />
+    <result column="emername" property="emername" jdbcType="VARCHAR" />
+    <result column="emerno" property="emerno" jdbcType="VARCHAR" />
+    <result column="happentime" property="happentime" jdbcType="DATE" />
+    <result column="emerdescribe" property="emerdescribe" jdbcType="VARCHAR" />
+    <result column="inaddress" property="inaddress" jdbcType="VARCHAR" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+    <result column="emertypeid" property="emertypeid" jdbcType="VARCHAR" />
+    </association>
+    <association property="nodes" javaType="com.risk.plan.entity.Nodes">
+    <id column="nodeid" property="nodeid" jdbcType="VARCHAR" />
+    <result column="nodename" property="nodename" jdbcType="VARCHAR" />
+    <result column="nodetype" property="nodetype" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="VARCHAR" />
+    <result column="latitude" property="latitude" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="areaid" property="areaid" jdbcType="VARCHAR" />
+    <result column="notes" property="notes" jdbcType="VARCHAR" />
+    </association>
+    <association property="emertype" javaType="com.risk.plan.entity.EmerType">
+	    <id column="emertypeid" property="emertypeid" jdbcType="VARCHAR" />
+	    <result column="emertypename" property="emertypename" jdbcType="VARCHAR" />
+	    <result column="level" property="level" jdbcType="VARCHAR" />
+	    <result column="describe" property="describe" jdbcType="VARCHAR" />
+	    <result column="note" property="note" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    enrelationid, nodeid, emerid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from enrelation
+    where enrelationid = #{enrelationid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from enrelation
+    where enrelationid = #{enrelationid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.risk.plan.entity.ENRelation" >
+    insert into enrelation (enrelationid, nodeid, emerid
+      )
+    values (#{enrelationid,jdbcType=VARCHAR}, #{nodeid,jdbcType=VARCHAR}, #{emerid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.risk.plan.entity.ENRelation" >
+    insert into enrelation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="enrelationid != null" >
+        enrelationid,
+      </if>
+      <if test="nodeid != null" >
+        nodeid,
+      </if>
+      <if test="emerid != null" >
+        emerid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="enrelationid != null" >
+        #{enrelationid,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeid != null" >
+        #{nodeid,jdbcType=VARCHAR},
+      </if>
+      <if test="emerid != null" >
+        #{emerid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.risk.plan.entity.ENRelation" >
+    update enrelation
+    <set >
+      <if test="nodeid != null" >
+        nodeid = #{nodeid,jdbcType=VARCHAR},
+      </if>
+      <if test="emerid != null" >
+        emerid = #{emerid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where enrelationid = #{enrelationid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.risk.plan.entity.ENRelation" >
+    update enrelation
+    set nodeid = #{nodeid,jdbcType=VARCHAR},
+      emerid = #{emerid,jdbcType=VARCHAR}
+    where enrelationid = #{enrelationid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from enrelation
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+  </select>
+  <select id="selectByWareHouseParmas" resultMap="BaseResultMap" parameterType="map">
+   select en.enrelationid, em.* ,no.*,t.emertypename  
+     from enrelation en ,emergency em ,nodes no ,emertype t ,warehouse w
+	<where>
+	 en.nodeid=no.nodeid 
+    and en.emerid=em.emerid
+     and em.emertypeid=t.emertypeid 
+    and no.nodetype='W'
+    and w.wnodeid=no.nodeid
+	<if test="nodeid != null" >
+      and  en.nodeid like #{nodeid,jdbcType=VARCHAR}
+      </if>
+      <if test="emerid != null" >
+       and en.emerid like #{emerid,jdbcType=VARCHAR}
+      </if>
+      <if test="warehouseno != null" >
+       and warehouseno like #{warehouseno,jdbcType=VARCHAR}
+      </if>
+      <if test="warehousename != null" >
+       and  warehousename like #{warehousename,jdbcType=VARCHAR}
+      </if>
+      <if test="warehouselevel != null" >
+       and warehouselevel like #{warehouselevel,jdbcType=VARCHAR}
+      </if>
+      <if test="property != null" >
+       and property like #{property,jdbcType=VARCHAR}
+      </if>
+	</where>
+   <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+    <if test="pageSize != null and startNum != null" >
+      limit #{pageSize} offset #{startNum}
+    </if>
+  </select>
+  
+  <select id="selectCountByWareHouseParams" resultType="int" parameterType="map">
+  select   count(*)  from enrelation en ,emergency em ,nodes no ,emertype t ,warehouse w
+	<where>
+	 en.nodeid=no.nodeid 
+    and en.emerid=em.emerid
+     and em.emertypeid=t.emertypeid 
+    and no.nodetype='W'
+    and w.wnodeid=no.nodeid
+	<if test="nodeid != null" >
+      and  en.nodeid like #{nodeid,jdbcType=VARCHAR}
+      </if>
+      <if test="emerid != null" >
+       and en.emerid like #{emerid,jdbcType=VARCHAR}
+      </if>
+      <if test="warehouseno != null" >
+       and warehouseno like #{warehouseno,jdbcType=VARCHAR}
+      </if>
+      <if test="warehousename != null" >
+       and  warehousename like #{warehousename,jdbcType=VARCHAR}
+      </if>
+      <if test="warehouselevel != null" >
+       and warehouselevel like #{warehouselevel,jdbcType=VARCHAR}
+      </if>
+      <if test="property != null" >
+       and property like #{property,jdbcType=VARCHAR}
+      </if>
+	</where>
+  </select>
+  
+  <select id="findByParams" resultMap="BaseResultMap" parameterType="map" >
+    select en.enrelationid, em.* ,no.*,t.emertypename  
+     from enrelation en ,emergency em ,nodes no ,emertype t ,disasternode d
+    <where>
+    en.nodeid=no.nodeid 
+    and en.emerid=em.emerid
+     and em.emertypeid=t.emertypeid 
+    and no.nodetype='D'
+    and d.dnodeid=no.nodeid
+     <if test="nodeid != null" >
+      and  en.nodeid like #{nodeid,jdbcType=VARCHAR}
+      </if>
+      <if test="emerid != null" >
+       and en.emerid like #{emerid,jdbcType=VARCHAR}
+      </if>
+      <if test="emername != null" >
+       and em.emername like #{emername,jdbcType=VARCHAR}
+      </if>
+      <if test="disasterno != null" >
+      and d.disasterno like #{disasterno,jdbcType=VARCHAR}
+      </if>
+      <if test="disastername != null" >
+      and  d.disastername like #{disastername,jdbcType=VARCHAR}
+      </if>
+      <if test="disasterlevel != null" >
+      and  d.disasterlevel like #{disasterlevel,jdbcType=VARCHAR}
+      </if>
+      <if test="principal != null" >
+      and  d.principal like #{principal,jdbcType=VARCHAR}
+      </if>
+      <if test="phone != null" >
+       and d.phone like #{phone,jdbcType=VARCHAR}
+      </if>
+      <if test="note != null" >
+      and d.note like #{note,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+    <if test="pageSize != null and startNum != null" >
+      limit #{pageSize} offset #{startNum}
+    </if>
+  </select>
+  <select id="findByParamsCount" resultType="int" parameterType="map" >
+    select count(*) from enrelation en ,emergency em ,nodes no ,emertype t, disasternode d
+    
+    <where>
+     en.nodeid=no.nodeid
+     and en.emerid=em.emerid
+     and em.emertypeid=t.emertypeid
+   	 and no.nodetype='D'
+   	 and d.dnodeid=no.nodeid
+     <if test="nodeid != null" >
+      and  en.nodeid like #{nodeid,jdbcType=VARCHAR}
+      </if>
+      <if test="emerid != null" >
+       and en.emerid like #{emerid,jdbcType=VARCHAR}
+      </if>
+     <if test="disasterno != null" >
+      and d.disasterno like #{disasterno,jdbcType=VARCHAR}
+      </if>
+      <if test="disastername != null" >
+      and  d.disastername like #{disastername,jdbcType=VARCHAR}
+      </if>
+      <if test="disasterlevel != null" >
+      and  d.disasterlevel like #{disasterlevel,jdbcType=VARCHAR}
+      </if>
+      <if test="principal != null" >
+      and  d.principal like #{principal,jdbcType=VARCHAR}
+      </if>
+      <if test="phone != null" >
+       and d.phone like #{phone,jdbcType=VARCHAR}
+      </if>
+      <if test="note != null" >
+      and d.note like #{note,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>

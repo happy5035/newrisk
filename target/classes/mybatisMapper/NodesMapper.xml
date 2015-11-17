@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.risk.plan.dao.NodesMapper" >
+  <resultMap id="BaseResultMap" type="com.risk.plan.entity.Nodes" >
+    <id column="nodeid" property="nodeid" jdbcType="VARCHAR" />
+    <result column="nodename" property="nodename" jdbcType="VARCHAR" />
+    <result column="nodetype" property="nodetype" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="VARCHAR" />
+    <result column="latitude" property="latitude" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <!-- <result column="areaid" property="areaid" jdbcType="VARCHAR" /> -->
+    <result column="notes" property="notes" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    nodeid, nodename, nodetype, longitude, latitude, address<!-- , areaid -->, notes
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from nodes
+    where nodeid = #{nodeid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByUserid" resultMap="BaseResultMap" parameterType="java.lang.String">
+ 	 select * from nodes n where n.nodeid in
+ 	(select e.nodeid from enrelation e where e.emerid in 
+ 	(select u.emerid from uerelation u where u.userid=#{userid,jdbcType=VARCHAR}))
+  </select>
+  <select id="selectByEmerid" resultMap="BaseResultMap" parameterType="java.lang.String">
+  select * from nodes n where n.nodeid in
+ 	(select e.nodeid from enrelation e where e.emerid =#{emerid,jdbcType=VARCHAR} )
+  
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from nodes
+    where nodeid = #{nodeid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.risk.plan.entity.Nodes" >
+    insert into nodes (nodeid, nodename, nodetype, 
+      longitude, latitude, address, 
+     <!--  areaid, --> notes)
+    values (#{nodeid,jdbcType=VARCHAR}, #{nodename,jdbcType=VARCHAR}, #{nodetype,jdbcType=VARCHAR}, 
+      #{longitude,jdbcType=VARCHAR}, #{latitude,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+     <!--  #{areaid,jdbcType=VARCHAR}, --> #{notes,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.risk.plan.entity.Nodes" >
+    insert into nodes
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="nodeid != null" >
+        nodeid,
+      </if>
+      <if test="nodename != null" >
+        nodename,
+      </if>
+      <if test="nodetype != null" >
+        nodetype,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+     <!--  <if test="areaid != null" >
+        areaid,
+      </if> -->
+      <if test="notes != null" >
+        notes,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="nodeid != null" >
+        #{nodeid,jdbcType=VARCHAR},
+      </if>
+      <if test="nodename != null" >
+        #{nodename,jdbcType=VARCHAR},
+      </if>
+      <if test="nodetype != null" >
+        #{nodetype,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+     <!--  <if test="areaid != null" >
+        #{areaid,jdbcType=VARCHAR},
+      </if> -->
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.risk.plan.entity.Nodes" >
+    update nodes
+    <set >
+      <if test="nodename != null" >
+        nodename = #{nodename,jdbcType=VARCHAR},
+      </if>
+      <if test="nodetype != null" >
+        nodetype = #{nodetype,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+     <!--  <if test="areaid != null" >
+        areaid = #{areaid,jdbcType=VARCHAR},
+      </if> -->
+      <if test="notes != null" >
+        notes = #{notes,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where nodeid = #{nodeid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.risk.plan.entity.Nodes" >
+    update nodes
+    set nodename = #{nodename,jdbcType=VARCHAR},
+      nodetype = #{nodetype,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+    <!--   areaid = #{areaid,jdbcType=VARCHAR}, -->
+      notes = #{notes,jdbcType=VARCHAR}
+    where nodeid = #{nodeid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from nodes
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+  </select>
+  <select id="findByParams" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from nodes
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+    <if test="pageSize != null and startNum != null" >
+      limit #{pageSize} offset #{startNum}
+    </if>
+  </select>
+  <select id="findByParamsCount" resultType="int" parameterType="map" >
+    select count(*) from nodes
+  </select>
+</mapper>

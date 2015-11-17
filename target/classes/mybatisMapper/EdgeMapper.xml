@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.risk.plan.dao.EdgeMapper" >
+  <resultMap id="BaseResultMap" type="com.risk.plan.entity.Edge" >
+    <id column="edgeid" property="edgeid" jdbcType="VARCHAR" />
+    <result column="secondnodeid" property="secondnodeid" jdbcType="VARCHAR" />
+    <result column="firstnodeid" property="firstnodeid" jdbcType="VARCHAR" />
+    <result column="edgeno" property="edgeno" jdbcType="VARCHAR" />
+    <result column="edgename" property="edgename" jdbcType="VARCHAR" />
+    <result column="edgetype" property="edgetype" jdbcType="VARCHAR" />
+    <result column="edgetypet" property="edgetypet" jdbcType="VARCHAR" />
+    <result column="length" property="length" jdbcType="VARCHAR" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    edgeid, secondnodeid, firstnodeid, edgeno, edgename, edgetype, edgetypet, length, 
+    note
+  </sql>
+  <select id="findByNodeid" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select firstnodeid from edge 
+  	where secondnodeid=#{secondnodeid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from edge
+    where edgeid = #{edgeid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from edge
+    where edgeid = #{edgeid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.risk.plan.entity.Edge" >
+    insert into edge (edgeid, secondnodeid, firstnodeid, 
+      edgeno, edgename, edgetype, 
+      edgetypet, length, note
+      )
+    values (#{edgeid,jdbcType=VARCHAR}, #{secondnodeid,jdbcType=VARCHAR}, #{firstnodeid,jdbcType=VARCHAR}, 
+      #{edgeno,jdbcType=VARCHAR}, #{edgename,jdbcType=VARCHAR}, #{edgetype,jdbcType=VARCHAR}, 
+      #{edgetypet,jdbcType=VARCHAR}, #{length,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.risk.plan.entity.Edge" >
+    insert into edge
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="edgeid != null" >
+        edgeid,
+      </if>
+      <if test="secondnodeid != null" >
+        secondnodeid,
+      </if>
+      <if test="firstnodeid != null" >
+        firstnodeid,
+      </if>
+      <if test="edgeno != null" >
+        edgeno,
+      </if>
+      <if test="edgename != null" >
+        edgename,
+      </if>
+      <if test="edgetype != null" >
+        edgetype,
+      </if>
+      <if test="edgetypet != null" >
+        edgetypet,
+      </if>
+      <if test="length != null" >
+        length,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="edgeid != null" >
+        #{edgeid,jdbcType=VARCHAR},
+      </if>
+      <if test="secondnodeid != null" >
+        #{secondnodeid,jdbcType=VARCHAR},
+      </if>
+      <if test="firstnodeid != null" >
+        #{firstnodeid,jdbcType=VARCHAR},
+      </if>
+      <if test="edgeno != null" >
+        #{edgeno,jdbcType=VARCHAR},
+      </if>
+      <if test="edgename != null" >
+        #{edgename,jdbcType=VARCHAR},
+      </if>
+      <if test="edgetype != null" >
+        #{edgetype,jdbcType=VARCHAR},
+      </if>
+      <if test="edgetypet != null" >
+        #{edgetypet,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null" >
+        #{length,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.risk.plan.entity.Edge" >
+    update edge
+    <set >
+      <if test="secondnodeid != null" >
+        secondnodeid = #{secondnodeid,jdbcType=VARCHAR},
+      </if>
+      <if test="firstnodeid != null" >
+        firstnodeid = #{firstnodeid,jdbcType=VARCHAR},
+      </if>
+      <if test="edgeno != null" >
+        edgeno = #{edgeno,jdbcType=VARCHAR},
+      </if>
+      <if test="edgename != null" >
+        edgename = #{edgename,jdbcType=VARCHAR},
+      </if>
+      <if test="edgetype != null" >
+        edgetype = #{edgetype,jdbcType=VARCHAR},
+      </if>
+      <if test="edgetypet != null" >
+        edgetypet = #{edgetypet,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null" >
+        length = #{length,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where edgeid = #{edgeid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.risk.plan.entity.Edge" >
+    update edge
+    set secondnodeid = #{secondnodeid,jdbcType=VARCHAR},
+      firstnodeid = #{firstnodeid,jdbcType=VARCHAR},
+      edgeno = #{edgeno,jdbcType=VARCHAR},
+      edgename = #{edgename,jdbcType=VARCHAR},
+      edgetype = #{edgetype,jdbcType=VARCHAR},
+      edgetypet = #{edgetypet,jdbcType=VARCHAR},
+      length = #{length,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR}
+    where edgeid = #{edgeid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from edge
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+  </select>
+  <select id="findByParams" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from edge
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+    <if test="pageSize != null and startNum != null" >
+      limit #{pageSize} offset #{startNum}
+    </if>
+  </select>
+  <select id="findByParamsCount" resultType="int" parameterType="map" >
+    select count(*) from edge
+  </select>
+</mapper>

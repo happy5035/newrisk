@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.risk.plan.dao.GoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.risk.plan.entity.Goods" >
+    <id column="goodsid" property="goodsid" jdbcType="VARCHAR" />
+    <result column="goodsname" property="goodsname" jdbcType="VARCHAR" />
+    <result column="goodsno" property="goodsno" jdbcType="VARCHAR" />
+    <result column="mainuse" property="mainuse" jdbcType="VARCHAR" />
+    <result column="measureunit" property="measureunit" jdbcType="VARCHAR" />
+    <result column="guaranteeperiod" property="guaranteeperiod" jdbcType="VARCHAR" />
+    <result column="specification" property="specification" jdbcType="VARCHAR" />
+    <result column="size" property="size" jdbcType="VARCHAR" />
+    <result column="goodstypeid" property="goodstypeid" jdbcType="VARCHAR" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    goodsid, goodsname, goodsno, mainuse, measureunit, guaranteeperiod, specification, 
+    size, goodstypeid, note
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from goods
+    where goodsid = #{goodsid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from goods
+    where goodsid = #{goodsid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.risk.plan.entity.Goods" >
+    insert into goods (goodsid, goodsname, goodsno, 
+      mainuse, measureunit, guaranteeperiod, 
+      specification, size, goodstypeid, 
+      note)
+    values (#{goodsid,jdbcType=VARCHAR}, #{goodsname,jdbcType=VARCHAR}, #{goodsno,jdbcType=VARCHAR}, 
+      #{mainuse,jdbcType=VARCHAR}, #{measureunit,jdbcType=VARCHAR}, #{guaranteeperiod,jdbcType=VARCHAR}, 
+      #{specification,jdbcType=VARCHAR}, #{size,jdbcType=VARCHAR}, #{goodstypeid,jdbcType=VARCHAR}, 
+      #{note,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.risk.plan.entity.Goods" >
+    insert into goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsid != null" >
+        goodsid,
+      </if>
+      <if test="goodsname != null" >
+        goodsname,
+      </if>
+      <if test="goodsno != null" >
+        goodsno,
+      </if>
+      <if test="mainuse != null" >
+        mainuse,
+      </if>
+      <if test="measureunit != null" >
+        measureunit,
+      </if>
+      <if test="guaranteeperiod != null" >
+        guaranteeperiod,
+      </if>
+      <if test="specification != null" >
+        specification,
+      </if>
+      <if test="size != null" >
+        size,
+      </if>
+      <if test="goodstypeid != null" >
+        goodstypeid,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsid != null" >
+        #{goodsid,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsname != null" >
+        #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsno != null" >
+        #{goodsno,jdbcType=VARCHAR},
+      </if>
+      <if test="mainuse != null" >
+        #{mainuse,jdbcType=VARCHAR},
+      </if>
+      <if test="measureunit != null" >
+        #{measureunit,jdbcType=VARCHAR},
+      </if>
+      <if test="guaranteeperiod != null" >
+        #{guaranteeperiod,jdbcType=VARCHAR},
+      </if>
+      <if test="specification != null" >
+        #{specification,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="goodstypeid != null" >
+        #{goodstypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.risk.plan.entity.Goods" >
+    update goods
+    <set >
+      <if test="goodsname != null" >
+        goodsname = #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsno != null" >
+        goodsno = #{goodsno,jdbcType=VARCHAR},
+      </if>
+      <if test="mainuse != null" >
+        mainuse = #{mainuse,jdbcType=VARCHAR},
+      </if>
+      <if test="measureunit != null" >
+        measureunit = #{measureunit,jdbcType=VARCHAR},
+      </if>
+      <if test="guaranteeperiod != null" >
+        guaranteeperiod = #{guaranteeperiod,jdbcType=VARCHAR},
+      </if>
+      <if test="specification != null" >
+        specification = #{specification,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        size = #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="goodstypeid != null" >
+        goodstypeid = #{goodstypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where goodsid = #{goodsid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.risk.plan.entity.Goods" >
+    update goods
+    set goodsname = #{goodsname,jdbcType=VARCHAR},
+      goodsno = #{goodsno,jdbcType=VARCHAR},
+      mainuse = #{mainuse,jdbcType=VARCHAR},
+      measureunit = #{measureunit,jdbcType=VARCHAR},
+      guaranteeperiod = #{guaranteeperiod,jdbcType=VARCHAR},
+      specification = #{specification,jdbcType=VARCHAR},
+      size = #{size,jdbcType=VARCHAR},
+      goodstypeid = #{goodstypeid,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR}
+    where goodsid = #{goodsid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from goods
+    
+    
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+  </select>
+  <select id="findByParams" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from goods
+    <where>
+    <if test="goodsname != null" >
+       and goodsname like #{goodsname,jdbcType=VARCHAR}
+      </if>
+      <if test="goodsno != null" >
+       and goodsno like #{goodsno,jdbcType=VARCHAR}
+      </if>
+      <if test="mainuse != null" >
+       and mainuse like #{mainuse,jdbcType=VARCHAR}
+      </if>
+      <if test="measureunit != null" >
+       and measureunit like #{measureunit,jdbcType=VARCHAR}
+      </if>
+      <if test="guaranteeperiod != null" >
+       and guaranteeperiod like #{guaranteeperiod,jdbcType=VARCHAR}
+      </if>
+      <if test="specification != null" >
+       and specification like #{specification,jdbcType=VARCHAR}
+      </if>
+      <if test="size != null" >
+       and size like #{size,jdbcType=VARCHAR}
+      </if>
+      <if test="goodstypeid != null" >
+       and goodstypeid like #{goodstypeid,jdbcType=VARCHAR}
+      </if>
+      <if test="note != null" >
+       and note like #{note,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+    <if test="pageSize != null and startNum != null" >
+      limit #{pageSize} offset #{startNum}
+    </if>
+  </select>
+  <select id="findByParamsCount" resultType="int" parameterType="map" >
+    select count(*) from goods
+    <where>
+    <if test="goodsname != null" >
+       and goodsname like #{goodsname,jdbcType=VARCHAR}
+      </if>
+      <if test="goodsno != null" >
+       and goodsno like #{goodsno,jdbcType=VARCHAR}
+      </if>
+      <if test="mainuse != null" >
+       and mainuse like #{mainuse,jdbcType=VARCHAR}
+      </if>
+      <if test="measureunit != null" >
+       and measureunit like #{measureunit,jdbcType=VARCHAR}
+      </if>
+      <if test="guaranteeperiod != null" >
+       and guaranteeperiod like #{guaranteeperiod,jdbcType=VARCHAR}
+      </if>
+      <if test="specification != null" >
+       and specification like #{specification,jdbcType=VARCHAR}
+      </if>
+      <if test="size != null" >
+       and size like #{size,jdbcType=VARCHAR}
+      </if>
+      <if test="goodstypeid != null" >
+       and goodstypeid like #{goodstypeid,jdbcType=VARCHAR}
+      </if>
+      <if test="note != null" >
+       and note like #{note,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.risk.plan.dao.GeneMapper" >
+  <resultMap id="BaseResultMap" type="com.risk.plan.entity.Gene" >
+    <id column="geneid" property="geneid" jdbcType="VARCHAR" />
+    <result column="transid" property="transid" jdbcType="VARCHAR" />
+    <result column="schemeid" property="schemeid" jdbcType="VARCHAR" />
+    <result column="tasksum" property="tasksum" jdbcType="INTEGER" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    geneid, transid, schemeid, tasksum, note
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from gene
+    where geneid = #{geneid,jdbcType=VARCHAR}
+  </select>
+  
+  
+  <select id="selectByTransid" parameterType="java.lang.String">
+  select
+  <include refid="Base_Column_List" />
+  from gene
+  where transid=#{transid,jdbcType=VARCHAR}
+  </select>
+  
+  
+   <delete id="deleteByTransid" parameterType="java.lang.String" >
+    delete from gene
+    where transid = #{transid,jdbcType=VARCHAR}
+  </delete>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from gene
+    where geneid = #{geneid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.risk.plan.entity.Gene" >
+    insert into gene (geneid, transid, schemeid, 
+      tasksum, note)
+    values (#{geneid,jdbcType=VARCHAR}, #{transid,jdbcType=VARCHAR}, #{schemeid,jdbcType=VARCHAR}, 
+      #{tasksum,jdbcType=INTEGER}, #{note,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.risk.plan.entity.Gene" >
+    insert into gene
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="geneid != null" >
+        geneid,
+      </if>
+      <if test="transid != null" >
+        transid,
+      </if>
+      <if test="schemeid != null" >
+        schemeid,
+      </if>
+      <if test="tasksum != null" >
+        tasksum,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="geneid != null" >
+        #{geneid,jdbcType=VARCHAR},
+      </if>
+      <if test="transid != null" >
+        #{transid,jdbcType=VARCHAR},
+      </if>
+      <if test="schemeid != null" >
+        #{schemeid,jdbcType=VARCHAR},
+      </if>
+      <if test="tasksum != null" >
+        #{tasksum,jdbcType=INTEGER},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.risk.plan.entity.Gene" >
+    update gene
+    <set >
+      <if test="transid != null" >
+        transid = #{transid,jdbcType=VARCHAR},
+      </if>
+      <if test="schemeid != null" >
+        schemeid = #{schemeid,jdbcType=VARCHAR},
+      </if>
+      <if test="tasksum != null" >
+        tasksum = #{tasksum,jdbcType=INTEGER},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where geneid = #{geneid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.risk.plan.entity.Gene" >
+    update gene
+    set transid = #{transid,jdbcType=VARCHAR},
+      schemeid = #{schemeid,jdbcType=VARCHAR},
+      tasksum = #{tasksum,jdbcType=INTEGER},
+      note = #{note,jdbcType=VARCHAR}
+    where geneid = #{geneid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from gene
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+  </select>
+  <select id="findByParams" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from gene
+    <where>
+     <if test="transid != null" >
+       and transid = #{transid,jdbcType=VARCHAR}
+      </if>
+      <if test="schemeid != null" >
+       and schemeid = #{schemeid,jdbcType=VARCHAR}
+      </if>
+      <if test="tasksum != null" >
+       and tasksum = #{tasksum,jdbcType=INTEGER}
+      </if>
+      <if test="note != null" >
+       and note = #{note,jdbcType=VARCHAR}
+      </if>
+    </where>
+   
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+    <if test="pageSize != null and startNum != null" >
+      limit #{pageSize} offset #{startNum}
+    </if>
+  </select>
+  <select id="findByParamsCount" resultType="int" parameterType="map" >
+    select count(*) from gene
+    <where>
+     <if test="transid != null" >
+       and transid = #{transid,jdbcType=VARCHAR}
+      </if>
+      <if test="schemeid != null" >
+       and schemeid = #{schemeid,jdbcType=VARCHAR}
+      </if>
+      <if test="tasksum != null" >
+       and tasksum = #{tasksum,jdbcType=INTEGER}
+      </if>
+      <if test="note != null" >
+       and note = #{note,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>

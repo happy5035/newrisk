@@ -1,0 +1,240 @@
+a:link    {
+           color: #2151a5;
+           text-decoration: none;
+          }
+a:visited {
+           color: #008080;
+           text-decoration: none;
+          }
+a:hover   {
+           color: #ff0000;
+           text-decoration: underline;
+          }
+body      {
+           color: #000000;
+           font-size: 9pt;
+           font-family: 宋体;
+		   scrollbar-face-color: #c9daf0;
+		   scrollbar-shadow-color: #5b8dcf;
+		   scrollbar-highlight-color: #ffffff;
+		   scrollbar-3dlight-color: #666666;
+		   scrollbar-darkshadow-color: #999999;
+		   scrollbar-track-color: #ffffff;
+		   scrollbar-arrow-color: #5b8dcf;
+           margin-top=0;
+           margin-left=0;
+           }
+.body1    {
+	   background-color: #749cdf;
+          }
+.body2    {
+	   background-image: url(../images/obrs-pic-051.gif);
+          }
+.body3    {
+	   background-image: url(../images/obrs-pic-051.gif);
+          }
+.body4    {
+	   background-image: url(../images/obrs-pic-052.gif);
+          }
+.bg1      {
+           background-image: url(../images/obrs-pic-009.jpg);
+           background-repeat: repeat-x;
+           background-attachment: fixed;
+           }
+.td1      {
+           background-color: #cedefa;
+          }
+.td2      {
+           background-color: #749cdf;
+          }
+.td3      {
+           background-color: #4a7ac9;
+          }
+.td4      {
+           background-color: #ffffff;
+          }
+.td5      {
+           background-color: #e7ecfa;
+          }
+.td6      {
+           background-color: #a8a9c8;
+          }
+.td7      {
+           background-color: #c2c3d7;
+          }
+.td8      {
+           background-color: #cbe3fb;
+           height: 25px;
+           font-size: 12px;
+           color: #0046a6;
+           font-family: 宋体;
+           font-weight: bold;
+          }
+.td9      {
+           background-color: #cbe3fb;
+           height: 25px;
+           font-size: 14px;
+           color: #0046a6;
+           font-family: 宋体;
+           font-weight: bold;
+          }
+.tr1      {
+           background-color: cbe3fb;
+           height: 25px;
+           font-size: 12px;
+           color: #0046a6;
+           font-family: 宋体;
+           font-weight: bold;
+          }
+.tr2      {
+           background-color: #ffffff;
+           height: 23px;
+          }
+.tr3      {
+           background-color: #cbe3fb;
+           height: 25px;
+           font-size: 9pt;
+           font-family: 宋体;
+           font-weight: bold;
+          }
+.tr4      {
+           height: 15px;
+          }
+.tr5      {
+           height: 32px;
+          }
+.tr6      {
+           height: 6px;
+          }
+.tr7      {
+           background-color: cedefa;
+           height: 28px;
+           font-size: 14px;
+           color: #000000;
+           font-family: 宋体;
+           font-weight: bold;
+          }
+.tr8      {
+           background-color: e3edfe;
+           height: 23px;
+          }
+.tr9      {
+           background-color: e3edfe;
+           height: 25px;
+           font-size: 14px;
+           color: #ff0000;
+           font-family: 宋体;
+           font-weight: bold;
+          }
+.tr10      {
+           background-color: #b5d7ff;
+           height: 28px;
+           font-size: 14px;
+           color: #000000;
+           font-family: 宋体;
+           font-weight: bold;
+          }
+
+input     {
+           background-color: rgb(241,244,251);
+           border: 1px solid rgb(0,94,187);
+           font-size: 9pt;
+           font-style: normal;
+           font-variant: normal;
+           line-height: normal;
+          }
+.input1   {
+           background-color: rgb(241,244,251);
+           border: 1px solid rgb(33,81,165);
+           font-size: 9pt;
+           font-style: normal;
+           font-variant: normal;
+           line-height: normal;
+           }
+.f1       {
+           color: #000000;
+           font: 14px 宋体;
+           font-weight: bold;
+           }
+.f2        {
+            color: #000000;
+            font: 12.7px 宋体;
+            font-weight: bold;
+           }
+.f3        {
+            color: #000000;
+            font: 12px 宋体;
+            font-weight: bold;
+           }
+.gwf1      {
+            color: #ff0000;
+            font: 42pt 宋体;
+            font-weight: bold;
+           }
+.gwf2      {
+            color: #000000;
+            font: 16pt 黑体;
+           }
+.gwf3      {
+            color: #000000;
+            font: 16pt 楷体_GB2312;
+           }
+.gwf4      {
+            color: #000000;
+            font: 22pt 宋体;
+           }
+.gwf5      {
+            color: #000000;
+            font: 16pt 仿宋_GB2312;
+           }
+table     {
+           font-size: 9pt;
+           font-family: 宋体;
+           }
+.table1   {
+           background-color: #5f8bcc;
+           width: 100%;
+           }
+.table2   {
+           background-color: #5f8bcc;
+          }
+.table3   {
+           background-color: #5f8bcc;
+           width: 98%;
+           }
+.table3   {
+           background-color: #5f8bcc;
+           width: 100%;
+           }
+.main-table
+{
+    FONT-SIZE: 10pt;
+    BORDER-LEFT-COLOR: #5f8bcc;
+    BORDER-BOTTOM-COLOR: #5f8bcc;
+    BORDER-TOP-STYLE: double;
+    BORDER-TOP-COLOR: #5f8bcc;
+    BORDER-RIGHT-STYLE: double;
+    BORDER-LEFT-STYLE: double;
+    TEXT-DECORATION: blink;
+    BORDER-RIGHT-COLOR: #5f8bcc;
+    BORDER-BOTTOM-STYLE: double
+}
+.outset-table
+{
+    BORDER-RIGHT: 1px outset;
+    BORDER-TOP: 1px outset;
+    FONT-SIZE: 10pt;
+    BORDER-LEFT: 1px outset;
+    BORDER-BOTTOM: 1px outset;
+    TEXT-DECORATION: blink
+}
+.inset-table
+{
+    BORDER-RIGHT: #9fb7c0 1px inset;
+    BORDER-TOP: #9fb7c0 1px inset;
+    FONT-SIZE: 9pt;
+    BORDER-LEFT: #9fb7c0 1px inset;
+    BORDER-BOTTOM: #9fb7c0 1px inset;
+    BACKGROUND-COLOR: #ebf1f2;
+    TEXT-DECORATION: blink
+}

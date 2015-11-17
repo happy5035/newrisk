@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.risk.plan.dao.RealColloMapper" >
+  <resultMap id="BaseResultMap" type="com.risk.plan.entity.RealCollo" >
+    <id column="realcolloid" property="realcolloid" jdbcType="VARCHAR" />
+    <result column="realload" property="realload" jdbcType="VARCHAR" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+    <result column="goodsid" property="goodsid" jdbcType="VARCHAR" />
+    <result column="realcollocationid" property="realcollocationid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    realcolloid, realload, note, goodsid, realcollocationid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from realcollo
+    where realcolloid = #{realcolloid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from realcollo
+    where realcolloid = #{realcolloid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.risk.plan.entity.RealCollo" >
+    insert into realcollo (realcolloid, realload, note, 
+      goodsid, realcollocationid)
+    values (#{realcolloid,jdbcType=VARCHAR}, #{realload,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}, 
+      #{goodsid,jdbcType=VARCHAR}, #{realcollocationid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.risk.plan.entity.RealCollo" >
+    insert into realcollo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="realcolloid != null" >
+        realcolloid,
+      </if>
+      <if test="realload != null" >
+        realload,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+      <if test="goodsid != null" >
+        goodsid,
+      </if>
+      <if test="realcollocationid != null" >
+        realcollocationid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="realcolloid != null" >
+        #{realcolloid,jdbcType=VARCHAR},
+      </if>
+      <if test="realload != null" >
+        #{realload,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsid != null" >
+        #{goodsid,jdbcType=VARCHAR},
+      </if>
+      <if test="realcollocationid != null" >
+        #{realcollocationid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.risk.plan.entity.RealCollo" >
+    update realcollo
+    <set >
+      <if test="realload != null" >
+        realload = #{realload,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsid != null" >
+        goodsid = #{goodsid,jdbcType=VARCHAR},
+      </if>
+      <if test="realcollocationid != null" >
+        realcollocationid = #{realcollocationid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where realcolloid = #{realcolloid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.risk.plan.entity.RealCollo" >
+    update realcollo
+    set realload = #{realload,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR},
+      goodsid = #{goodsid,jdbcType=VARCHAR},
+      realcollocationid = #{realcollocationid,jdbcType=VARCHAR}
+    where realcolloid = #{realcolloid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from realcollo
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+  </select>
+  <select id="findByParams" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from realcollo
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+    <if test="pageSize != null and startNum != null" >
+      limit #{pageSize} offset #{startNum}
+    </if>
+  </select>
+  <select id="findByParamsCount" resultType="int" parameterType="map" >
+    select count(*) from realcollo
+  </select>
+</mapper>

@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.risk.plan.dao.UsersMapper" >
+  <resultMap id="BaseResultMap" type="com.risk.plan.entity.Users" >
+    <id column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="usertype" property="usertype" jdbcType="VARCHAR" />
+    <result column="logname" property="logname" jdbcType="VARCHAR" />
+    <result column="logpwd" property="logpwd" jdbcType="VARCHAR" />
+    <result column="pwdquestion" property="pwdquestion" jdbcType="VARCHAR" />
+    <result column="pwdanswer" property="pwdanswer" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="birday" property="birday" jdbcType="DATE" />
+    <result column="certitype" property="certitype" jdbcType="VARCHAR" />
+    <result column="certicobe" property="certicobe" jdbcType="VARCHAR" />
+    <result column="depart" property="depart" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="cellphone" property="cellphone" jdbcType="VARCHAR" />
+    <result column="userqq" property="userqq" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="registertime" property="registertime" jdbcType="DATE" />
+    <result column="userstate" property="userstate" jdbcType="VARCHAR" />
+    <result column="workstate" property="workstate" jdbcType="VARCHAR" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+    <result column="firstornot" property="firstornot" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    userid, usertype, logname, logpwd, pwdquestion, pwdanswer, username, birday, certitype, 
+    certicobe, depart, telephone, cellphone, userqq, email, registertime, userstate, 
+    workstate, note, firstornot
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from users
+    where userid = #{userid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByLogname" resultMap="BaseResultMap"  parameterType="java.lang.String">
+  select  * from users where logname =#{logname,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from users
+    where userid = #{userid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.risk.plan.entity.Users" >
+    insert into users (userid, usertype, logname, 
+      logpwd, pwdquestion, pwdanswer, 
+      username, birday, certitype, 
+      certicobe, depart, telephone, 
+      cellphone, userqq, email, 
+      registertime, userstate, workstate, 
+      note, firstornot)
+    values (#{userid,jdbcType=VARCHAR}, #{usertype,jdbcType=VARCHAR}, #{logname,jdbcType=VARCHAR}, 
+      #{logpwd,jdbcType=VARCHAR}, #{pwdquestion,jdbcType=VARCHAR}, #{pwdanswer,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{birday,jdbcType=DATE}, #{certitype,jdbcType=VARCHAR}, 
+      #{certicobe,jdbcType=VARCHAR}, #{depart,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{cellphone,jdbcType=VARCHAR}, #{userqq,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{registertime,jdbcType=DATE}, #{userstate,jdbcType=VARCHAR}, #{workstate,jdbcType=VARCHAR}, 
+      #{note,jdbcType=VARCHAR}, #{firstornot,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.risk.plan.entity.Users" >
+    insert into users
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="usertype != null" >
+        usertype,
+      </if>
+      <if test="logname != null" >
+        logname,
+      </if>
+      <if test="logpwd != null" >
+        logpwd,
+      </if>
+      <if test="pwdquestion != null" >
+        pwdquestion,
+      </if>
+      <if test="pwdanswer != null" >
+        pwdanswer,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="birday != null" >
+        birday,
+      </if>
+      <if test="certitype != null" >
+        certitype,
+      </if>
+      <if test="certicobe != null" >
+        certicobe,
+      </if>
+      <if test="depart != null" >
+        depart,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="cellphone != null" >
+        cellphone,
+      </if>
+      <if test="userqq != null" >
+        userqq,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="registertime != null" >
+        registertime,
+      </if>
+      <if test="userstate != null" >
+        userstate,
+      </if>
+      <if test="workstate != null" >
+        workstate,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+      <if test="firstornot != null" >
+        firstornot,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="usertype != null" >
+        #{usertype,jdbcType=VARCHAR},
+      </if>
+      <if test="logname != null" >
+        #{logname,jdbcType=VARCHAR},
+      </if>
+      <if test="logpwd != null" >
+        #{logpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdquestion != null" >
+        #{pwdquestion,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdanswer != null" >
+        #{pwdanswer,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="birday != null" >
+        #{birday,jdbcType=DATE},
+      </if>
+      <if test="certitype != null" >
+        #{certitype,jdbcType=VARCHAR},
+      </if>
+      <if test="certicobe != null" >
+        #{certicobe,jdbcType=VARCHAR},
+      </if>
+      <if test="depart != null" >
+        #{depart,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="cellphone != null" >
+        #{cellphone,jdbcType=VARCHAR},
+      </if>
+      <if test="userqq != null" >
+        #{userqq,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="registertime != null" >
+        #{registertime,jdbcType=DATE},
+      </if>
+      <if test="userstate != null" >
+        #{userstate,jdbcType=VARCHAR},
+      </if>
+      <if test="workstate != null" >
+        #{workstate,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="firstornot != null" >
+        #{firstornot,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.risk.plan.entity.Users" >
+    update users
+    <set >
+      <if test="usertype != null" >
+        usertype = #{usertype,jdbcType=VARCHAR},
+      </if>
+      <if test="logname != null" >
+        logname = #{logname,jdbcType=VARCHAR},
+      </if>
+      <if test="logpwd != null" >
+        logpwd = #{logpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdquestion != null" >
+        pwdquestion = #{pwdquestion,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdanswer != null" >
+        pwdanswer = #{pwdanswer,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="birday != null" >
+        birday = #{birday,jdbcType=DATE},
+      </if>
+      <if test="certitype != null" >
+        certitype = #{certitype,jdbcType=VARCHAR},
+      </if>
+      <if test="certicobe != null" >
+        certicobe = #{certicobe,jdbcType=VARCHAR},
+      </if>
+      <if test="depart != null" >
+        depart = #{depart,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="cellphone != null" >
+        cellphone = #{cellphone,jdbcType=VARCHAR},
+      </if>
+      <if test="userqq != null" >
+        userqq = #{userqq,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="registertime != null" >
+        registertime = #{registertime,jdbcType=DATE},
+      </if>
+      <if test="userstate != null" >
+        userstate = #{userstate,jdbcType=VARCHAR},
+      </if>
+      <if test="workstate != null" >
+        workstate = #{workstate,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="firstornot != null" >
+        firstornot = #{firstornot,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where userid = #{userid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.risk.plan.entity.Users" >
+    update users
+    set usertype = #{usertype,jdbcType=VARCHAR},
+      logname = #{logname,jdbcType=VARCHAR},
+      logpwd = #{logpwd,jdbcType=VARCHAR},
+      pwdquestion = #{pwdquestion,jdbcType=VARCHAR},
+      pwdanswer = #{pwdanswer,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      birday = #{birday,jdbcType=DATE},
+      certitype = #{certitype,jdbcType=VARCHAR},
+      certicobe = #{certicobe,jdbcType=VARCHAR},
+      depart = #{depart,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      cellphone = #{cellphone,jdbcType=VARCHAR},
+      userqq = #{userqq,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      registertime = #{registertime,jdbcType=DATE},
+      userstate = #{userstate,jdbcType=VARCHAR},
+      workstate = #{workstate,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR},
+      firstornot = #{firstornot,jdbcType=VARCHAR}
+    where userid = #{userid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from users
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+  </select>
+  <select id="findByParams" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from users
+    <where>
+     <if test="usertype != null" >
+       and usertype like #{usertype,jdbcType=VARCHAR}
+      </if>
+      <if test="logname != null" >
+       and logname like #{logname,jdbcType=VARCHAR}
+      </if>
+      <if test="logpwd != null" >
+       and logpwd like #{logpwd,jdbcType=VARCHAR}
+      </if>
+      <if test="pwdquestion != null" >
+       and pwdquestion like #{pwdquestion,jdbcType=VARCHAR}
+      </if>
+      <if test="pwdanswer != null" >
+       and pwdanswer like #{pwdanswer,jdbcType=VARCHAR}
+      </if>
+      <if test="username != null" >
+       and username like #{username,jdbcType=VARCHAR}
+      </if>
+      <if test="birday != null" >
+       and birday like #{birday,jdbcType=DATE}
+      </if>
+      <if test="certitype != null" >
+       and certitype like #{certitype,jdbcType=VARCHAR}
+      </if>
+      <if test="certicobe != null" >
+       and certicobe like #{certicobe,jdbcType=VARCHAR}
+      </if>
+      <if test="depart != null" >
+       and depart like #{depart,jdbcType=VARCHAR}
+      </if>
+      <if test="telephone != null" >
+       and telephone like #{telephone,jdbcType=VARCHAR}
+      </if>
+      <if test="cellphone != null" >
+       and cellphone like #{cellphone,jdbcType=VARCHAR}
+      </if>
+      <if test="userqq != null" >
+       and userqq like #{userqq,jdbcType=VARCHAR}
+      </if>
+      <if test="email != null" >
+       and email like #{email,jdbcType=VARCHAR}
+      </if>
+      <if test="registertime != null" >
+      and  registertime like #{registertime,jdbcType=DATE}
+      </if>
+      <if test="userstate != null" >
+       and userstate like #{userstate,jdbcType=VARCHAR}
+      </if>
+      <if test="workstate != null" >
+      and  workstate like #{workstate,jdbcType=VARCHAR}
+      </if>
+      <if test="note != null" >
+       and note like #{note,jdbcType=VARCHAR}
+      </if>
+      <if test="firstornot != null" >
+       and firstornot like #{firstornot,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+    <if test="pageSize != null and startNum != null" >
+      limit #{pageSize} offset #{startNum}
+    </if>
+  </select>
+  <select id="findByParamsCount" resultType="int" parameterType="map" >
+    select count(*) from users
+    <where>
+     <if test="usertype != null" >
+       and usertype like #{usertype,jdbcType=VARCHAR}
+      </if>
+      <if test="logname != null" >
+       and logname like #{logname,jdbcType=VARCHAR}
+      </if>
+      <if test="logpwd != null" >
+       and logpwd like #{logpwd,jdbcType=VARCHAR}
+      </if>
+      <if test="pwdquestion != null" >
+       and pwdquestion like #{pwdquestion,jdbcType=VARCHAR}
+      </if>
+      <if test="pwdanswer != null" >
+       and pwdanswer like #{pwdanswer,jdbcType=VARCHAR}
+      </if>
+      <if test="username != null" >
+       and username like #{username,jdbcType=VARCHAR}
+      </if>
+      <if test="birday != null" >
+       and birday like #{birday,jdbcType=DATE}
+      </if>
+      <if test="certitype != null" >
+       and certitype like #{certitype,jdbcType=VARCHAR}
+      </if>
+      <if test="certicobe != null" >
+       and certicobe like #{certicobe,jdbcType=VARCHAR}
+      </if>
+      <if test="depart != null" >
+       and depart like #{depart,jdbcType=VARCHAR}
+      </if>
+      <if test="telephone != null" >
+       and telephone like #{telephone,jdbcType=VARCHAR}
+      </if>
+      <if test="cellphone != null" >
+       and cellphone like #{cellphone,jdbcType=VARCHAR}
+      </if>
+      <if test="userqq != null" >
+       and userqq like #{userqq,jdbcType=VARCHAR}
+      </if>
+      <if test="email != null" >
+       and email like #{email,jdbcType=VARCHAR}
+      </if>
+      <if test="registertime != null" >
+      and  registertime like #{registertime,jdbcType=DATE}
+      </if>
+      <if test="userstate != null" >
+       and userstate like #{userstate,jdbcType=VARCHAR}
+      </if>
+      <if test="workstate != null" >
+      and  workstate like #{workstate,jdbcType=VARCHAR}
+      </if>
+      <if test="note != null" >
+       and note like #{note,jdbcType=VARCHAR}
+      </if>
+      <if test="firstornot != null" >
+       and firstornot like #{firstornot,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>

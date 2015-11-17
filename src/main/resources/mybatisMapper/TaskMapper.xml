@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.risk.plan.dao.TaskMapper" >
+  <resultMap id="BaseResultMap" type="com.risk.plan.entity.Task" >
+    <id column="taskid" property="taskid" jdbcType="VARCHAR" />
+    <result column="geneid" property="geneid" jdbcType="VARCHAR" />
+    <result column="taskserialnum" property="taskserialnum" jdbcType="INTEGER" />
+    <result column="firstnodeid" property="firstnodeid" jdbcType="VARCHAR" />
+    <result column="secondnodeid" property="secondnodeid" jdbcType="VARCHAR" />
+    <result column="starttime" property="starttime" jdbcType="DATE" />
+    <result column="endtime" property="endtime" jdbcType="DATE" />
+    <result column="standardornot" property="standardornot" jdbcType="VARCHAR" />
+    <result column="realcollocationid" property="realcollocationid" jdbcType="VARCHAR" />
+    <result column="scollocationplanid" property="scollocationplanid" jdbcType="VARCHAR" />
+    <result column="pathsum" property="pathsum" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    taskid, geneid, taskserialnum, firstnodeid, secondnodeid, starttime, endtime, standardornot, 
+    realcollocationid, scollocationplanid, pathsum
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from task
+    where taskid = #{taskid,jdbcType=VARCHAR}
+  </select>
+ 
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from task
+    where taskid = #{taskid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.risk.plan.entity.Task" >
+    insert into task (taskid, geneid, taskserialnum, 
+      firstnodeid, secondnodeid, starttime, 
+      endtime, standardornot, realcollocationid, 
+      scollocationplanid, pathsum)
+    values (#{taskid,jdbcType=VARCHAR}, #{geneid,jdbcType=VARCHAR}, #{taskserialnum,jdbcType=INTEGER}, 
+      #{firstnodeid,jdbcType=VARCHAR}, #{secondnodeid,jdbcType=VARCHAR}, #{starttime,jdbcType=DATE}, 
+      #{endtime,jdbcType=DATE}, #{standardornot,jdbcType=VARCHAR}, #{realcollocationid,jdbcType=VARCHAR}, 
+      #{scollocationplanid,jdbcType=VARCHAR}, #{pathsum,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.risk.plan.entity.Task" >
+    insert into task
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="taskid != null" >
+        taskid,
+      </if>
+      <if test="geneid != null" >
+        geneid,
+      </if>
+      <if test="taskserialnum != null" >
+        taskserialnum,
+      </if>
+      <if test="firstnodeid != null" >
+        firstnodeid,
+      </if>
+      <if test="secondnodeid != null" >
+        secondnodeid,
+      </if>
+      <if test="starttime != null" >
+        starttime,
+      </if>
+      <if test="endtime != null" >
+        endtime,
+      </if>
+      <if test="standardornot != null" >
+        standardornot,
+      </if>
+      <if test="realcollocationid != null" >
+        realcollocationid,
+      </if>
+      <if test="scollocationplanid != null" >
+        scollocationplanid,
+      </if>
+      <if test="pathsum != null" >
+        pathsum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="taskid != null" >
+        #{taskid,jdbcType=VARCHAR},
+      </if>
+      <if test="geneid != null" >
+        #{geneid,jdbcType=VARCHAR},
+      </if>
+      <if test="taskserialnum != null" >
+        #{taskserialnum,jdbcType=INTEGER},
+      </if>
+      <if test="firstnodeid != null" >
+        #{firstnodeid,jdbcType=VARCHAR},
+      </if>
+      <if test="secondnodeid != null" >
+        #{secondnodeid,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=DATE},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=DATE},
+      </if>
+      <if test="standardornot != null" >
+        #{standardornot,jdbcType=VARCHAR},
+      </if>
+      <if test="realcollocationid != null" >
+        #{realcollocationid,jdbcType=VARCHAR},
+      </if>
+      <if test="scollocationplanid != null" >
+        #{scollocationplanid,jdbcType=VARCHAR},
+      </if>
+      <if test="pathsum != null" >
+        #{pathsum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.risk.plan.entity.Task" >
+    update task
+    <set >
+      <if test="geneid != null" >
+        geneid = #{geneid,jdbcType=VARCHAR},
+      </if>
+      <if test="taskserialnum != null" >
+        taskserialnum = #{taskserialnum,jdbcType=INTEGER},
+      </if>
+      <if test="firstnodeid != null" >
+        firstnodeid = #{firstnodeid,jdbcType=VARCHAR},
+      </if>
+      <if test="secondnodeid != null" >
+        secondnodeid = #{secondnodeid,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        starttime = #{starttime,jdbcType=DATE},
+      </if>
+      <if test="endtime != null" >
+        endtime = #{endtime,jdbcType=DATE},
+      </if>
+      <if test="standardornot != null" >
+        standardornot = #{standardornot,jdbcType=VARCHAR},
+      </if>
+      <if test="realcollocationid != null" >
+        realcollocationid = #{realcollocationid,jdbcType=VARCHAR},
+      </if>
+      <if test="scollocationplanid != null" >
+        scollocationplanid = #{scollocationplanid,jdbcType=VARCHAR},
+      </if>
+      <if test="pathsum != null" >
+        pathsum = #{pathsum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where taskid = #{taskid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.risk.plan.entity.Task" >
+    update task
+    set geneid = #{geneid,jdbcType=VARCHAR},
+      taskserialnum = #{taskserialnum,jdbcType=INTEGER},
+      firstnodeid = #{firstnodeid,jdbcType=VARCHAR},
+      secondnodeid = #{secondnodeid,jdbcType=VARCHAR},
+      starttime = #{starttime,jdbcType=DATE},
+      endtime = #{endtime,jdbcType=DATE},
+      standardornot = #{standardornot,jdbcType=VARCHAR},
+      realcollocationid = #{realcollocationid,jdbcType=VARCHAR},
+      scollocationplanid = #{scollocationplanid,jdbcType=VARCHAR},
+      pathsum = #{pathsum,jdbcType=INTEGER}
+    where taskid = #{taskid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from task
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+  </select>
+  <select id="findByParams" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from task
+    <where>
+    <if test="geneid != null" >
+       and geneid = #{geneid,jdbcType=VARCHAR}
+      </if>
+      <if test="taskserialnum != null" >
+      and  taskserialnum = #{taskserialnum,jdbcType=INTEGER}
+      </if>
+      <if test="firstnodeid != null" >
+       and firstnodeid = #{firstnodeid,jdbcType=VARCHAR}
+      </if>
+      <if test="secondnodeid != null" >
+       and secondnodeid = #{secondnodeid,jdbcType=VARCHAR}
+      </if>
+      <if test="starttime != null" >
+      and  starttime = #{starttime,jdbcType=DATE}
+      </if>
+      <if test="endtime != null" >
+       and endtime = #{endtime,jdbcType=DATE}
+      </if>
+      <if test="standardornot != null" >
+       and standardornot = #{standardornot,jdbcType=VARCHAR}
+      </if>
+      <if test="realcollocationid != null" >
+      and  realcollocationid = #{realcollocationid,jdbcType=VARCHAR}
+      </if>
+      <if test="scollocationplanid != null" >
+       and scollocationplanid = #{scollocationplanid,jdbcType=VARCHAR}
+      </if>
+      <if test="pathsum != null" >
+       and pathsum = #{pathsum,jdbcType=INTEGER}
+      </if>
+    </where>
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+    <if test="pageSize != null and startNum != null" >
+      limit #{pageSize} offset #{startNum}
+    </if>
+  </select>
+  <select id="findByParamsCount" resultType="int" parameterType="map" >
+    select count(*) from task
+    <where>
+    <if test="geneid != null" >
+       and geneid = #{geneid,jdbcType=VARCHAR}
+      </if>
+      <if test="taskserialnum != null" >
+      and  taskserialnum = #{taskserialnum,jdbcType=INTEGER}
+      </if>
+      <if test="firstnodeid != null" >
+       and firstnodeid = #{firstnodeid,jdbcType=VARCHAR}
+      </if>
+      <if test="secondnodeid != null" >
+       and secondnodeid = #{secondnodeid,jdbcType=VARCHAR}
+      </if>
+      <if test="starttime != null" >
+      and  starttime = #{starttime,jdbcType=DATE}
+      </if>
+      <if test="endtime != null" >
+       and endtime = #{endtime,jdbcType=DATE}
+      </if>
+      <if test="standardornot != null" >
+       and standardornot = #{standardornot,jdbcType=VARCHAR}
+      </if>
+      <if test="realcollocationid != null" >
+      and  realcollocationid = #{realcollocationid,jdbcType=VARCHAR}
+      </if>
+      <if test="scollocationplanid != null" >
+       and scollocationplanid = #{scollocationplanid,jdbcType=VARCHAR}
+      </if>
+      <if test="pathsum != null" >
+       and pathsum = #{pathsum,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+</mapper>

@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+   
+    <constant value="true" name="struts.devMode"/>
+    <constant value="GB2312" name="struts.i18n.encoding"/>
+    <package name="default" namespace="/" extends="struts-default">
+	  
+      <action name="gotoAddDisaster" class="com.modelings.disaster.disasterNode"
+            method="gotoAddDisaster">
+			<result name="success">/DisasterNode/addDisasterNode.jsp</result>
+	  </action>
+      <!-- 区域三级  -->
+		<action name="findArea" class="com.modelings.disaster.disasterNode"
+			method="findArea">
+		</action>
+		<action name="findStreet" class="com.modelings.disaster.disasterNode"
+			method="findStreet">
+		</action>	
+		<!-- 获得风险事件类型变化时的联动20131223-->
+		<action name="findEmergency" class="com.modelings.disaster.disasterNode"
+			method="findEmergency">
+		</action>
+     <!-- 获得所有的区域 -->
+		<action name="getAllArea" class="com.modelings.disaster.disasterNode"
+			method="getAllArea">
+			<result name="success">areaTree.jsp</result>
+			<result name="error">area.jsp</result>
+		</action>
+	 <!-- 获得区域下的所有节点-->
+		<action name="getNodesByAreaId" class="com.modelings.disaster.disasterNode"
+			method="getNodesByAreaId">
+		</action>
+	 <!-- 获得某个风险事件的所有节点-->
+		<action name="getNodesByEmer" class="com.modelings.disaster.disasterNode"
+			method="getNodesByEmer">
+		</action>
+	<!-- 获得某个风险事件的所有连接边-->
+		<action name="getEdgesByEmer" class="com.modelings.disaster.disasterNode"
+			method="getEdgesByEmer">
+		</action>
+	<!-- 获得所有连接边-->
+		<action name="getEdgesByAreaId" class="com.modelings.disaster.disasterNode"
+			method="getEdgesByAreaId">
+		</action>
+		
+	<!-- 保存风险清单项 -->
+		<action name="saveDisasterNode" class="com.modelings.disaster.disasterNode"
+			method="saveDisasterNode">
+			<result name="success">/DisasterNode/addSuccess.jsp</result>
+			<result name="error">/DisasterNode/addfailed.jsp</result>
+		</action>	
+		<action name="GotoSearchDisasterNode" class="com.modelings.disaster.disasterNode" method="GotoSearchDisasterNode">
+		    <result name="success">/DisasterNode/listDisasterNode.jsp</result>		
+	    </action>	
+	    <action name="SearchDisasterNode" class="com.modelings.disaster.disasterNode" method="SearchDisasterNode">
+		    <result name="success">/DisasterNode/listDisasterNode.jsp</result>		
+	    </action>
+	    <action name="DetailDisasterNode" class="com.modelings.disaster.disasterNode" method="DetailDisasterNode">
+		    <result name="success">/DisasterNode/detailDisasterNode.jsp</result>		
+	    </action>
+	    <action name="EditDisasterNode" class="com.modelings.disaster.disasterNode" method="EditDisasterNode">
+		    <result name="success">/DisasterNode/editDisasterNode.jsp</result>		
+	    </action>
+	    <action name="UpdateDisasterNode" class="com.modelings.disaster.disasterNode" method="UpdateDisasterNode">
+		    <result name="success">/DisasterNode/listDisasterNode.jsp</result>		
+	    </action>
+        <action name="DeleteDisasterNode" class="com.modelings.disaster.disasterNode" method="DeleteDisasterNode">
+		    <result name="success">/DisasterNode/listDisasterNode.jsp</result>		
+	   </action>
+	   
+	   <!--风险应对策略的信息  20131229-->
+	   <action name="gotoAddWareHouse" class="com.modelings.disaster.WareHouseNode" method="gotoAddWareHouse">
+			<result name="success">/WareHouseNode/addWareHouseNode.jsp</result>
+	   </action>
+	   <action name="saveWareHouse" class="com.modelings.disaster.WareHouseNode" method="saveWareHouse">
+			<result name="success">/WareHouseNode/addWareHouseNode.jsp</result>
+	   </action>
+	   <action name="GotoSearchWareHouse" class="com.modelings.disaster.WareHouseNode" method="GotoSearchWareHouse">
+		   <result name="success">/WareHouseNode/listWareHouseNode.jsp</result>		
+	   </action>
+	   <action name="SearchWareHouse" class="com.modelings.disaster.WareHouseNode" method="SearchWareHouse">
+		   <result name="success">/WareHouseNode/listWareHouseNode.jsp</result>		
+	   </action>
+	   <action name="DetailWareHouse" class="com.modelings.disaster.WareHouseNode" method="DetailWareHouse">
+		    <result name="success">/WareHouseNode/detailWareHouseNode.jsp</result>		
+	    </action>
+	    <action name="EditWareHouse" class="com.modelings.disaster.WareHouseNode" method="EditWareHouse">
+		    <result name="success">/WareHouseNode/editWareHouseNode.jsp</result>		
+	    </action>
+	    <action name="UpdateWareHouse" class="com.modelings.disaster.WareHouseNode" method="UpdateWareHouse">
+		    <result name="success">/WareHouseNode/listWareHouseNode.jsp</result>		
+	    </action>
+        <action name="DeleteWareHouse" class="com.modelings.disaster.WareHouseNode" method="DeleteWareHouse">
+		    <result name="success">/WareHouseNode/listWareHouseNode.jsp</result>		
+	   </action>
+	   
+        <action name="gotoAddEdge" class="com.modelings.edge.connectEdges" method="gotoAddEdge">
+			<result name="success">/Edge/addEdge.jsp</result>
+	   </action>
+	   <!-- 保存折线所有点的坐标 -->
+	   <action name="savepolylinepoints" class="com.modelings.edge.connectEdges" method="savepolylinepoints">
+	   </action>
+       <action name="saveEdge" class="com.modelings.edge.connectEdges" method="saveEdge">
+           <result name="success">/Edge/addEdge.jsp</result>
+           <result name="error">/Edge/addEdge.jsp</result>
+	   </action> 	  	   
+   
+       <!-- 物资的相关信息131128 -->
+       <action name="gotoAddGoods" class="com.others.GoodsInfo" method="gotoAddGoods">
+			<result name="success">/Goods/addGoods.jsp</result>
+	   </action>
+	   <action name="findGrade" class="com.others.GoodsInfo"
+			method="findGrade">
+		</action>
+		<action name="saveGoods" class="com.others.GoodsInfo" method="saveGoods">
+			<result name="success">/Goods/addGoods.jsp</result>
+	   </action>
+	   <action name="GotoSearchGoods" class="com.others.GoodsInfo" method="GotoSearchGoods">
+		    <result name="success">/Goods/listGoods.jsp</result>		
+	   </action>
+	   <action name="SearchGoods" class="com.others.GoodsInfo" method="SearchGoods">
+		    <result name="success">/Goods/listGoods.jsp</result>		
+	   </action>
+	   <action name="EditGoods" class="com.others.GoodsInfo" method="EditGoods">
+		    <result name="success">/Goods/editGoods.jsp</result>		
+	   </action>
+	   <action name="UpdateGoods" class="com.others.GoodsInfo" method="UpdateGoods">
+		    <result name="success">/Goods/listGoods.jsp</result>		
+	   </action>
+	   <action name="DeleteGoods" class="com.others.GoodsInfo" method="DeleteGoods">
+		    <result name="success">/Goods/listGoods.jsp</result>		
+	   </action>
+	   
+	   
+	   
+	   <!-- 运输工具的相关信息131208 -->
+       <action name="gotoAddTrsport" class="com.others.Trsport" method="gotoAddTrsport">
+			<result name="success">/Transportation/addTransportation.jsp</result>
+	   </action>
+	   <action name="findLoadWeight" class="com.others.Trsport"
+			method="findLoadWeight">
+		</action>
+		<action name="saveTrsport" class="com.others.Trsport" method="saveTrsport">
+			<result name="success">/Transportation/addTransportation.jsp</result>
+	   </action>
+	   <action name="GotoSearchTrsport" class="com.others.Trsport" method="GotoSearchTrsport">
+		    <result name="success">/Transportation/listTransportation.jsp</result>		
+	   </action>
+	   <action name="SearchTrsport" class="com.others.Trsport" method="SearchTrsport">
+		    <result name="success">/Transportation/listTransportation.jsp</result>		
+	   </action>
+	   <action name="EditTrsport" class="com.others.Trsport" method="EditTrsport">
+		    <result name="success">/Transportation/editTransportation.jsp</result>		
+	   </action>
+	   <action name="UpdateTrsport" class="com.others.Trsport" method="UpdateTrsport">
+		    <result name="success">/Transportation/listTransportation.jsp</result>		
+	   </action>
+	   <action name="DeleteTrsport" class="com.others.Trsport" method="DeleteTrsport">
+		    <result name="success">/Transportation/listTransportation.jsp</result>		
+	   </action>
+	   
+	   <!-- 节点与物资之间供需关系的相关信息131211 -->
+       <action name="gotoAddGoodsRel" class="com.others.GoodsRel" method="gotoAddGoodsRel">
+			<result name="success">/GoodsRel/addGoodsRel.jsp</result>
+	   </action>
+	   <!--实现风险事件选择的时候对应节点的联动140318 -->
+	   <action name="findNodes" class="com.others.GoodsRel"
+			method="findNodes">
+		</action>
+		<!-- 实现物资名称（物资）选择时对应单位的联动-->
+	   <action name="findMeasureUnit" class="com.others.GoodsRel"
+			method="findMeasureUnit">
+		</action>
+		<action name="saveGoodsRel" class="com.others.GoodsRel" method="saveGoodsRel">
+			<result name="success">/GoodsRel/addGoodsRel.jsp</result>
+	   </action>
+	   <action name="GotoSearchGoodsRel" class="com.others.GoodsRel" method="GotoSearchGoodsRel">
+			<result name="success">/GoodsRel/listGoodsRel.jsp</result>
+	   </action>
+	    <action name="SearchGoodsRel" class="com.others.GoodsRel" method="SearchGoodsRel">
+		    <result name="success">/GoodsRel/listGoodsRel.jsp</result>		
+	   </action>
+	   <action name="EditGoodsRel" class="com.others.GoodsRel" method="EditGoodsRel">
+		    <result name="success">/GoodsRel/editGoodsRel.jsp</result>		
+	   </action>
+	   <action name="UpdateGoodsRel" class="com.others.GoodsRel" method="UpdateGoodsRel">
+		    <result name="success">/GoodsRel/listGoodsRel.jsp</result>		
+	   </action>
+	   <action name="DeleteGoodsRel" class="com.others.GoodsRel" method="DeleteGoodsRel">
+		    <result name="success">/GoodsRel/listGoodsRel.jsp</result>		
+	   </action>
+	   
+	   <!-- 风险事件131221 -->
+        <action name="gotoAddEmergency" class="com.others.EmergencyInfo" method="gotoAddEmergency">
+			<result name="success">/Emergency/addEmergency.jsp</result>
+	    </action>
+	    <action name="findLevel" class="com.others.EmergencyInfo"
+			method="findLevel">
+		</action>
+		<action name="findDescribe" class="com.others.EmergencyInfo"
+			method="findDescribe">
+		</action>
+		<action name="saveEmergency" class="com.others.EmergencyInfo" method="saveEmergency">
+			<result name="success">/Emergency/addEmergency.jsp</result>
+	    </action>
+	    <action name="GotoSearchEmergency" class="com.others.EmergencyInfo" method="GotoSearchEmergency">
+			<result name="success">/Emergency/listEmergency.jsp</result>
+	    </action>
+	    <action name="SearchEmergency" class="com.others.EmergencyInfo" method="SearchEmergency">
+		    <result name="success">/Emergency/listEmergency.jsp</result>		
+	   </action>
+	   <action name="EditEmergency" class="com.others.EmergencyInfo" method="EditEmergency">
+		    <result name="success">/Emergency/editEmergency.jsp</result>		
+	   </action>
+	   <action name="UpdateEmergency" class="com.others.EmergencyInfo" method="UpdateEmergency">
+		    <result name="success">/Emergency/listEmergency.jsp</result>		
+	   </action>
+	   <action name="DeleteEmergency" class="com.others.EmergencyInfo" method="DeleteEmergency">
+		    <result name="success">/Emergency/listEmergency.jsp</result>		
+	   </action>
+	   <!-- 将该用户创建的风险事件给其他用户授权管理  140320 -->
+	   <action name="gotoAuthorize" class="com.others.EmergencyInfo" method="gotoAuthorize">
+		    <result name="success">/Emergency/reAuthorize.jsp</result>		
+	   </action>
+	   <action name="reAuthorize" class="com.others.EmergencyInfo" method="reAuthorize">
+		    <result name="success">/Emergency/reAuthorize.jsp</result>		
+	   </action>
+	   
+	   
+	   <!-- 动画直线140108 -->
+        <action name="one_Trsportation" class="com.cartoon.Straightline" method="one_Trsportation">
+	    </action>
+	    <action name="one_Scheme" class="com.cartoon.Straightline" method="one_Scheme">
+	    </action>
+	    
+	    
+	    <!-- 登陆  框架添加20140213-->
+        <!--验证码   -->	
+		<action name="VerifyCode" class="com.login.VerifyCodeAction"
+			method="VerifyCode">
+			<result name="success" type="stream">
+				<param name="contentType">image/jpeg</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action> 		
+		<action name="login" class="com.login.LoginAction"
+			method="login">
+			<result name="success">/frameset.jsp</result>
+			<result name="success1">/retpwd.jsp</result>
+			<result name="error">/login.jsp</result>
+		</action>	 
+		<action name="gotoRetpwd" class="com.login.LoginAction"
+			method="gotoRetpwd">
+			<result name="success">/retpwd.jsp</result>
+			<result name="error">/404error.jsp</result>
+		</action>
+		<action name="retpwd" class="com.login.LoginAction"
+			method="retpwd">
+			<result name="success">/login.jsp</result>
+			<result name="error">/404error.jsp</result>
+		</action>		
+		<!-- 获取主菜单 -->
+		<action name="left" class="com.login.LoginAction"
+			method="left">
+			<result name="success">/left.jsp</result>
+			<result name="error">/login.jsp</result>
+		</action>
+		<!-- 获取三级菜单  -->
+		<action name="topa" class="com.login.LoginAction"
+			method="topa">
+			<result name="success">/mainNavigation.jsp</result>
+			<result name="error">/login.jsp</result>
+		</action>
+		<!-- 退出   -->
+		<action name="loginOut" class="com.login.LoginAction"
+			method="loginOut">
+			<result name="success">/login.jsp</result>
+		</action>
+		
+		<!--用户注册 20140227-->
+				<!-- 添加用户 -->
+		<action name="addUser" class="com.login.UserAction"
+			method="gotoAddUser">
+			<result name="success">/users/addUser.jsp</result>
+		</action>
+		<!-- 保存用户 -->
+		<action name="saveUser" class="com.login.UserAction"
+			method="saveUser">
+			<result name="success">/users/saveUserSuccess.jsp</result>
+			<result name="error">/users/saveUserError.jsp</result>
+		</action>
+		<!-- 删除用户 -->
+		<action name="deleteUser" class="com.login.UserAction"
+			method="deleteUser">
+			<result name="success">/users/listUser.jsp</result>
+			<result name="error">/users/deleteUserError.jsp</result>
+		</action>
+		<!-- 用户列表 -->
+		<action name="listUser" class="com.login.UserAction"
+			method="listUser">
+			<result name="success">/users/listUser.jsp</result>
+		</action>        
+        <!-- 用户列表详情 -->
+		<action name="listUserDetail" class="com.login.UserAction"
+			method="listUserDetail">
+			<result name="success">/users/listUserDetail.jsp</result>
+		</action>
+		<!-- 修改用户信息 -->
+		<action name="editUser" class="com.login.UserAction"
+			method="editUser">
+			<result name="success">/users/editUser.jsp</result>
+		</action>
+		<!-- 更新用户 -->
+		<action name="updateUser" class="com.login.UserAction"
+			method="updateUser">
+			<result name="success">/users/updateUserSuccess.jsp</result>
+			<result name="error">/users/updateUserError.jsp</result>
+		</action>
+		<!-- 页面添加时判断用户名的唯一性 荆娟娟 -->
+        <action name="checkUser" class="com.login.UserAction" method="checkUser">            
+            <result name="error">/users/addUser.jsp</result>                
+        </action>
+        <!-- 查看自己信息 荆娟娟 -->
+        <action name="UserMyself" class="com.login.UserAction" method="UserMyself">  
+            <result name="success">/users/editUser.jsp</result>          
+            <result name="error">/users/addUser.jsp</result>                
+        </action>
+		
+		<!-- 添加角色  20140216-->
+	    <action name="gotoaddRolesAction" class="com.roles.RolesAction" method="gotoaddRoles">
+	        <result name="success">/roles/addRoles.jsp</result>
+	    </action>
+	    <action name="saveRolesAction" class="com.roles.RolesAction" method="saveRoles">
+		    <result name="success">/roles/addSuccess.jsp</result>
+		    <result name="error">/roles/addFaile.jsp</result>
+	    </action>
+	    <action name="listRolesAction" class="com.roles.RolesAction" method="listRoles">
+		    <result name="success">/roles/listRole.jsp</result>
+		    <result name="error">/error.jsp</result>	
+	    </action>
+	    <action name="gotoupdateRolesAction" class="com.roles.RolesAction" method="gotoupdateRoles">
+	 	    <result name="success">/roles/updateRoles.jsp</result>
+	 	    <result name="error">/error.jsp</result>
+	    </action>
+	    <action name="updateRolesAction" class="com.roles.RolesAction" method="updateRoles">
+		    <result name="success">/roles/updateSuccess.jsp</result>
+		    <result name="error">/error.jsp</result>
+	    </action>
+	    <action name="deleteRoleAction" class="com.roles.RolesAction" method="deleteRole">
+		    <result name="success" type="redirectAction">listRolesAction</result>
+		    <result name="error">error.jsp</result>
+	    </action>
+	    
+	    <!-- 快速创建实例  20140320-->
+	    <action name="gotoAddExample" class="com.others.QuicklyCreate" method="gotoAddExample">
+	        <result name="success">/QuicklyCreate/addExample.jsp</result>
+	    </action>
+	    <action name="saveEmergency2" class="com.others.QuicklyCreate" method="saveEmergency2">
+	        <result name="success">/QuicklyCreate/addExample.jsp</result>
+	    </action>
+	    <action name="saveDisasterNode2" class="com.others.QuicklyCreate" method="saveDisasterNode2">
+	        <result name="success">/QuicklyCreate/addExample.jsp</result>
+	    </action>
+	    <action name="saveWareHouse2" class="com.others.QuicklyCreate" method="saveWareHouse2">
+	        <result name="success">/QuicklyCreate/addExample.jsp</result>
+	    </action>
+	    <action name="openGoodsRelDetail" class="com.others.QuicklyCreate" method="openGoodsRelDetail">
+	        <result name="success">/QuicklyCreate/addGoodsRel2.jsp</result>
+	    </action>
+	    <action name="saveGoodsRel2" class="com.others.QuicklyCreate" method="saveGoodsRel2">
+	        <result name="success">/QuicklyCreate/addGoodsRel2.jsp</result>
+	    </action>
+		<action name="openEdgeDetail" class="com.others.QuicklyCreate" method="openEdgeDetail">
+	        <result name="success">/QuicklyCreate/addEdge2.jsp</result>
+	    </action>
+	    <action name="saveEdge2" class="com.others.QuicklyCreate" method="saveEdge2">
+	        <result name="success">/QuicklyCreate/addEdge2.jsp</result>
+	    </action>
+	    <!--
+	    查看风险事件情况
+   -->
+   <action name="gosearchDisaster" class="com.modelings.edge.connectEdges" method="gotoAddEdge">
+	        <result name="success">/Edge/searchDisaster.jsp</result>
+	    </action>
+   </package>
+</struts>    

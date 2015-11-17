@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.risk.plan.dao.SubMapper" >
+  <resultMap id="BaseResultMap" type="com.risk.plan.entity.Sub" >
+    <id column="subid" property="subid" jdbcType="VARCHAR" />
+    <result column="subname" property="subname" jdbcType="VARCHAR" />
+    <result column="subno" property="subno" jdbcType="VARCHAR" />
+    <result column="emername" property="emername" jdbcType="VARCHAR" />
+    <result column="people" property="people" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="VARCHAR" />
+    <result column="goods" property="goods" jdbcType="VARCHAR" />
+    <result column="emertypeid" property="emertypeid" jdbcType="VARCHAR" />
+    <result column="riskpercent" property="riskpercent" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    subid, subname, subno, emerid, people, money, goods
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sub
+    where subid = #{subid,jdbcType=VARCHAR}
+  </select>
+  
+  
+   <select id="selectByEmerId" resultMap="BaseResultMap" parameterType="map">
+     select 
+    *
+    from sub 
+    where emerid = #{emerid,jdbcType=VARCHAR}
+  </select> 
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sub
+    where subid = #{subid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.risk.plan.entity.Sub" >
+    insert into sub (subid, subname, subno, 
+      emername, people, money, 
+      goods, emertypeid, riskpercent
+      )
+    values (#{subid,jdbcType=VARCHAR}, #{subname,jdbcType=VARCHAR}, #{subno,jdbcType=VARCHAR}, 
+      #{emername,jdbcType=VARCHAR}, #{people,jdbcType=VARCHAR}, #{money,jdbcType=VARCHAR}, 
+      #{goods,jdbcType=VARCHAR}, #{emertypeid,jdbcType=VARCHAR}, #{riskpercent,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.risk.plan.entity.Sub" >
+    insert into sub
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="subid != null" >
+        subid,
+      </if>
+      <if test="subname != null" >
+        subname,
+      </if>
+      <if test="subno != null" >
+        subno,
+      </if>
+      <if test="emername != null" >
+        emername,
+      </if>
+      <if test="people != null" >
+        people,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="goods != null" >
+        goods,
+      </if>
+      <if test="emertypeid != null" >
+        emertypeid,
+      </if>
+      <if test="riskpercent != null" >
+        riskpercent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="subid != null" >
+        #{subid,jdbcType=VARCHAR},
+      </if>
+      <if test="subname != null" >
+        #{subname,jdbcType=VARCHAR},
+      </if>
+      <if test="subno != null" >
+        #{subno,jdbcType=VARCHAR},
+      </if>
+      <if test="emername != null" >
+        #{emername,jdbcType=VARCHAR},
+      </if>
+      <if test="people != null" >
+        #{people,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=VARCHAR},
+      </if>
+      <if test="goods != null" >
+        #{goods,jdbcType=VARCHAR},
+      </if>
+      <if test="emertypeid != null" >
+        #{emertypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="riskpercent != null" >
+        #{riskpercent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.risk.plan.entity.Sub" >
+    update sub
+    <set >
+      <if test="subname != null" >
+        subname = #{subname,jdbcType=VARCHAR},
+      </if>
+      <if test="subno != null" >
+        subno = #{subno,jdbcType=VARCHAR},
+      </if>
+      <if test="emername != null" >
+        emername = #{emername,jdbcType=VARCHAR},
+      </if>
+      <if test="people != null" >
+        people = #{people,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=VARCHAR},
+      </if>
+      <if test="goods != null" >
+        goods = #{goods,jdbcType=VARCHAR},
+      </if>
+      <if test="emertypeid != null" >
+        emertypeid = #{emertypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="riskpercent != null" >
+        riskpercent = #{riskpercent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where subid = #{subid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.risk.plan.entity.Sub" >
+    update sub
+    set subname = #{subname,jdbcType=VARCHAR},
+      subno = #{subno,jdbcType=VARCHAR},
+      emername = #{emername,jdbcType=VARCHAR},
+      people = #{people,jdbcType=VARCHAR},
+      money = #{money,jdbcType=VARCHAR},
+      goods = #{goods,jdbcType=VARCHAR},
+      emertypeid = #{emertypeid,jdbcType=VARCHAR},
+      riskpercent = #{riskpercent,jdbcType=VARCHAR}
+    where subid = #{subid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from sub
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+  </select>
+  <select id="findByParams" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from sub
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+    <if test="pageSize != null and startNum != null" >
+      limit #{pageSize} offset #{startNum}
+    </if>
+  </select>
+  <select id="findByParamsCount" resultType="int" parameterType="map" >
+    select count(*) from sub
+  </select>
+</mapper>

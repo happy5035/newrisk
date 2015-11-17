@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.risk.plan.dao.EmergencyMapper" >
+  <resultMap id="BaseResultMap" type="com.risk.plan.entity.Emergency" >
+    <id column="emerid" property="emerid" jdbcType="VARCHAR" />
+    <result column="emername" property="emername" jdbcType="VARCHAR" />
+    <result column="emerno" property="emerno" jdbcType="VARCHAR" />
+    <result column="happentime" property="happentime" jdbcType="DATE" />
+    <result column="emerdescribe" property="emerdescribe" jdbcType="VARCHAR" />
+    <result column="inaddress" property="inaddress" jdbcType="VARCHAR" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+   <!--  <result column="emertypeid" property="emertypeid" jdbcType="VARCHAR" /> -->
+    <!--  <association property="emertype" javaType="com.risk.plan.entity.EmerType">
+	    <id column="emertypeid" property="emertypeid" jdbcType="VARCHAR" />
+	   <result column="emertypename" property="emertypename" jdbcType="VARCHAR" /> 
+	    <result column="level" property="level" jdbcType="VARCHAR" />
+	    <result column="describe" property="describe" jdbcType="VARCHAR" />
+	    <result column="note" property="note" jdbcType="VARCHAR" />
+    </association> -->
+  </resultMap>
+  <sql id="Base_Column_List" >
+    emerid, emername, emerno, happentime, emerdescribe,note,subnum<!-- , emertypeid -->
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    *
+    from emergency 
+    where emerid = #{emerid,jdbcType=VARCHAR}
+  </select> 
+  <select id="selectByUserid" resultMap="BaseResultMap" parameterType="java.lang.String">
+  select * from emergency e where e.emerid in 
+  (select u.emerid from uerelation u where u.userid=#{userid,jdbcType=VARCHAR} and u.state='1')
+  </select>
+ <!--  <select id="selectByEmerTypeName" resultMap="BaseResultMap" parameterType="map">
+  select * from emergency e left join emertype t on e.emertypeid=t.emertypeid 
+  <where>
+  <if test="emertypename !=null">
+  and  t.emertypename=#{emertypename,jdbcType=VARCHAR}
+  </if>
+  <if test="userid != null">
+   and e.emerid in
+  (select u.emerid from uerelation u where u.userid=#{userid,jdbcType=VARCHAR})
+  </if>
+  </where>
+  </select> 
+   -->
+  
+  
+   <select id="selectByEmerName" resultMap="BaseResultMap" parameterType="map">
+  select * from emergency e 
+  <where>
+  <if test="emername !=null">
+  and  e.emername=#{emername,jdbcType=VARCHAR}
+  </if>
+  <if test="userid != null">
+   and e.emerid in
+  (select u.emerid from uerelation u where u.userid=#{userid,jdbcType=VARCHAR})
+  </if>
+  </where>
+  </select> 
+  
+   <select id="selectByEmerId" resultMap="BaseResultMap" parameterType="map">
+     select 
+    *
+    from emergency 
+    where emerid = #{emerid,jdbcType=VARCHAR}
+  </select> 
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from emergency
+    where emerid = #{emerid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.risk.plan.entity.Emergency" >
+    insert into emergency (emerid, emername, emerno, 
+      happentime, emerdescribe,subnum , 
+      note)
+    values (#{emerid,jdbcType=VARCHAR}, #{emername,jdbcType=VARCHAR}, #{emerno,jdbcType=VARCHAR}, 
+      #{happentime,jdbcType=DATE}, #{emerdescribe,jdbcType=VARCHAR},#{subnum,jdbcType=VARCHAR} ,
+      #{note,jdbcType=VARCHAR} )
+  </insert>
+  <insert id="insertSelective" parameterType="com.risk.plan.entity.Emergency" >
+    insert into emergency
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="emerid != null" >
+        emerid,
+      </if>
+      <if test="emername != null" >
+        emername,
+      </if>
+      <if test="emerno != null" >
+        emerno,
+      </if>
+      <if test="happentime != null" >
+        happentime,
+      </if>
+      <if test="emerdescribe != null" >
+        emerdescribe,
+      </if>
+      <if test="subnum != null" >
+        subnum,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+    <!--   <if test="emertypeid != null" >
+        emertypeid,
+      </if> -->
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="emerid != null" >
+        #{emerid,jdbcType=VARCHAR},
+      </if>
+      <if test="emername != null" >
+        #{emername,jdbcType=VARCHAR},
+      </if>
+      <if test="emerno != null" >
+        #{emerno,jdbcType=VARCHAR},
+      </if>
+      <if test="happentime != null" >
+        #{happentime,jdbcType=DATE},
+      </if>
+      <if test="emerdescribe != null" >
+        #{emerdescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="subnum != null" >
+        #{subnum,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+    <!--   <if test="emertypeid != null" >
+        #{emertypeid,jdbcType=VARCHAR},
+      </if> -->
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.risk.plan.entity.Emergency" >
+    update emergency
+    <set >
+      <if test="emername != null" >
+        emername = #{emername,jdbcType=VARCHAR},
+      </if>
+      <if test="emerno != null" >
+        emerno = #{emerno,jdbcType=VARCHAR},
+      </if>
+      <if test="happentime != null" >
+        happentime = #{happentime,jdbcType=DATE},
+      </if>
+      <if test="emerdescribe != null" >
+        emerdescribe = #{emerdescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="subnum != null" >
+        subnum = #{subnum,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+     <!--  <if test="emertypeid != null" >
+        emertypeid = #{emertypeid,jdbcType=VARCHAR},
+      </if> -->
+    </set>
+    where emerid = #{emerid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.risk.plan.entity.Emergency" >
+    update emergency
+    set emername = #{emername,jdbcType=VARCHAR},
+      emerno = #{emerno,jdbcType=VARCHAR},
+      happentime = #{happentime,jdbcType=DATE},
+      emerdescribe = #{emerdescribe,jdbcType=VARCHAR},
+      subnum = #{subnum,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR},
+     <!--  emertypeid = #{emertypeid,jdbcType=VARCHAR} -->
+    where emerid = #{emerid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from emergency
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+  </select>
+  <select id="findByParams" resultMap="BaseResultMap" parameterType="map" >
+       select
+    <include refid="Base_Column_List" />
+    from emergency e
+    <where>
+     <if test="emername != null" >
+       and e.emername like #{emername,jdbcType=VARCHAR}
+      </if>
+      <if test="emerno != null" >
+      and  e.emerno like #{emerno,jdbcType=VARCHAR}
+      </if>
+      <if test="happentime != null" >
+      and  e.happentime like #{happentime,jdbcType=DATE}
+      </if>
+      <if test="emerdescribe != null" >
+      and  e.emerdescribe like #{emerdescribe,jdbcType=VARCHAR}
+      </if>
+     <!--  <if test="inaddress != null" >
+      and  e.inaddress like #{inaddress,jdbcType=VARCHAR}
+      </if> -->
+      <if test="note != null" >
+      and  e.note like #{note,jdbcType=VARCHAR}
+      </if>
+       <if test="subnum != null" >
+      and  e.subnum like #{subnum,jdbcType=VARCHAR}
+      </if>
+     
+    </where>
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+    <if test="pageSize != null and startNum != null" >
+      limit #{pageSize} offset #{startNum}
+    </if>
+  </select>
+  <select id="findByParamsCount" resultType="int" parameterType="map" >
+  select count(*)
+  
+    from emergency e
+     <where>
+     <if test="emername != null" >
+       and e.emername like #{emername,jdbcType=VARCHAR}
+      </if>
+      <if test="emerno != null" >
+      and  e.emerno like #{emerno,jdbcType=VARCHAR}
+      </if>
+      <if test="happentime != null" >
+      and  e.happentime like #{happentime,jdbcType=DATE}
+      </if>
+      <if test="emerdescribe != null" >
+      and  e.emerdescribe like #{emerdescribe,jdbcType=VARCHAR}
+      </if>
+     <!--  <if test="inaddress != null" >
+      and  e.inaddress like #{inaddress,jdbcType=VARCHAR}
+      </if> -->
+      <if test="note != null" >
+      and  e.note like #{note,jdbcType=VARCHAR}
+      </if>
+         <if test="subnum != null" >
+      and  e.subnum like #{subnum,jdbcType=VARCHAR}
+      </if>
+    <!--   <if test="emertypeid != null" >
+      and  e.emertypeid like #{emertypeid,jdbcType=VARCHAR}
+      </if> -->
+      <!--  and e.emertypeid=et.emertypeid -->
+      <!-- <if test="usertype != null and user != '' "  > 
+      and e.emerid in (select u.emerid from uerelation u where u.userid =#{userid ,jdbcType=VARCHAR} )
+      </if> -->
+    </where>
+  </select>
+</mapper>

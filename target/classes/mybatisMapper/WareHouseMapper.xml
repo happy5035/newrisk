@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.risk.plan.dao.WareHouseMapper" >
+  <resultMap id="BaseResultMap" type="com.risk.plan.entity.WareHouse" >
+    <id column="wnodeid" property="wnodeid" jdbcType="VARCHAR" />
+    <result column="warehouseno" property="warehouseno" jdbcType="VARCHAR" />
+    <result column="warehousename" property="warehousename" jdbcType="VARCHAR" />
+    <result column="warehouselevel" property="warehouselevel" jdbcType="VARCHAR" />
+    <result column="property" property="property" jdbcType="VARCHAR" />
+    <result column="dimensions" property="dimensions" jdbcType="VARCHAR" />
+    <result column="capacity" property="capacity" jdbcType="VARCHAR" />
+    <result column="legalman" property="legalman" jdbcType="VARCHAR" />
+    <result column="belong" property="belong" jdbcType="VARCHAR" />
+    <result column="administrator" property="administrator" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+    <result column="legalmanphone" property="legalmanphone" jdbcType="VARCHAR" />
+    <result column="linkman" property="linkman" jdbcType="VARCHAR" />
+    <result column="linkmanphone" property="linkmanphone" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    wnodeid, warehouseno, warehousename, warehouselevel, property, dimensions, capacity, 
+    legalman, belong, administrator, phone, note, legalmanphone, linkman, linkmanphone
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from warehouse
+    where wnodeid = #{wnodeid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from warehouse
+    where wnodeid = #{wnodeid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.risk.plan.entity.WareHouse" >
+    insert into warehouse (wnodeid, warehouseno, warehousename, 
+      warehouselevel, property, dimensions, 
+      capacity, legalman, belong, 
+      administrator, phone, note, 
+      legalmanphone, linkman, linkmanphone
+      )
+    values (#{wnodeid,jdbcType=VARCHAR}, #{warehouseno,jdbcType=VARCHAR}, #{warehousename,jdbcType=VARCHAR}, 
+      #{warehouselevel,jdbcType=VARCHAR}, #{property,jdbcType=VARCHAR}, #{dimensions,jdbcType=VARCHAR}, 
+      #{capacity,jdbcType=VARCHAR}, #{legalman,jdbcType=VARCHAR}, #{belong,jdbcType=VARCHAR}, 
+      #{administrator,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}, 
+      #{legalmanphone,jdbcType=VARCHAR}, #{linkman,jdbcType=VARCHAR}, #{linkmanphone,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.risk.plan.entity.WareHouse" >
+    insert into warehouse
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="wnodeid != null" >
+        wnodeid,
+      </if>
+      <if test="warehouseno != null" >
+        warehouseno,
+      </if>
+      <if test="warehousename != null" >
+        warehousename,
+      </if>
+      <if test="warehouselevel != null" >
+        warehouselevel,
+      </if>
+      <if test="property != null" >
+        property,
+      </if>
+      <if test="dimensions != null" >
+        dimensions,
+      </if>
+      <if test="capacity != null" >
+        capacity,
+      </if>
+      <if test="legalman != null" >
+        legalman,
+      </if>
+      <if test="belong != null" >
+        belong,
+      </if>
+      <if test="administrator != null" >
+        administrator,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+      <if test="legalmanphone != null" >
+        legalmanphone,
+      </if>
+      <if test="linkman != null" >
+        linkman,
+      </if>
+      <if test="linkmanphone != null" >
+        linkmanphone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="wnodeid != null" >
+        #{wnodeid,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseno != null" >
+        #{warehouseno,jdbcType=VARCHAR},
+      </if>
+      <if test="warehousename != null" >
+        #{warehousename,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouselevel != null" >
+        #{warehouselevel,jdbcType=VARCHAR},
+      </if>
+      <if test="property != null" >
+        #{property,jdbcType=VARCHAR},
+      </if>
+      <if test="dimensions != null" >
+        #{dimensions,jdbcType=VARCHAR},
+      </if>
+      <if test="capacity != null" >
+        #{capacity,jdbcType=VARCHAR},
+      </if>
+      <if test="legalman != null" >
+        #{legalman,jdbcType=VARCHAR},
+      </if>
+      <if test="belong != null" >
+        #{belong,jdbcType=VARCHAR},
+      </if>
+      <if test="administrator != null" >
+        #{administrator,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="legalmanphone != null" >
+        #{legalmanphone,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null" >
+        #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanphone != null" >
+        #{linkmanphone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.risk.plan.entity.WareHouse" >
+    update warehouse
+    <set >
+      <if test="warehouseno != null" >
+        warehouseno = #{warehouseno,jdbcType=VARCHAR},
+      </if>
+      <if test="warehousename != null" >
+        warehousename = #{warehousename,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouselevel != null" >
+        warehouselevel = #{warehouselevel,jdbcType=VARCHAR},
+      </if>
+      <if test="property != null" >
+        property = #{property,jdbcType=VARCHAR},
+      </if>
+      <if test="dimensions != null" >
+        dimensions = #{dimensions,jdbcType=VARCHAR},
+      </if>
+      <if test="capacity != null" >
+        capacity = #{capacity,jdbcType=VARCHAR},
+      </if>
+      <if test="legalman != null" >
+        legalman = #{legalman,jdbcType=VARCHAR},
+      </if>
+      <if test="belong != null" >
+        belong = #{belong,jdbcType=VARCHAR},
+      </if>
+      <if test="administrator != null" >
+        administrator = #{administrator,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="legalmanphone != null" >
+        legalmanphone = #{legalmanphone,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null" >
+        linkman = #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanphone != null" >
+        linkmanphone = #{linkmanphone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where wnodeid = #{wnodeid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.risk.plan.entity.WareHouse" >
+    update warehouse
+    set warehouseno = #{warehouseno,jdbcType=VARCHAR},
+      warehousename = #{warehousename,jdbcType=VARCHAR},
+      warehouselevel = #{warehouselevel,jdbcType=VARCHAR},
+      property = #{property,jdbcType=VARCHAR},
+      dimensions = #{dimensions,jdbcType=VARCHAR},
+      capacity = #{capacity,jdbcType=VARCHAR},
+      legalman = #{legalman,jdbcType=VARCHAR},
+      belong = #{belong,jdbcType=VARCHAR},
+      administrator = #{administrator,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR},
+      legalmanphone = #{legalmanphone,jdbcType=VARCHAR},
+      linkman = #{linkman,jdbcType=VARCHAR},
+      linkmanphone = #{linkmanphone,jdbcType=VARCHAR}
+    where wnodeid = #{wnodeid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from warehouse
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+  </select>
+  <select id="findByParams" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from warehouse
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+    <if test="pageSize != null and startNum != null" >
+      limit #{pageSize} offset #{startNum}
+    </if>
+  </select>
+  <select id="findByParamsCount" resultType="int" parameterType="map" >
+    select count(*) from warehouse
+  </select>
+</mapper>

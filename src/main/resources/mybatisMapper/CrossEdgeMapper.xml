@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.risk.plan.dao.CrossEdgeMapper" >
+  <resultMap id="BaseResultMap" type="com.risk.plan.entity.CrossEdge" >
+    <id column="crossedgeid" property="crossedgeid" jdbcType="VARCHAR" />
+    <result column="cnodeid" property="cnodeid" jdbcType="VARCHAR" />
+    <result column="edgeid" property="edgeid" jdbcType="VARCHAR" />
+    <result column="startdistance" property="startdistance" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    crossedgeid, cnodeid, edgeid, startdistance
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from crossedge
+    where crossedgeid = #{crossedgeid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from crossedge
+    where crossedgeid = #{crossedgeid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.risk.plan.entity.CrossEdge" >
+    insert into crossedge (crossedgeid, cnodeid, edgeid, 
+      startdistance)
+    values (#{crossedgeid,jdbcType=VARCHAR}, #{cnodeid,jdbcType=VARCHAR}, #{edgeid,jdbcType=VARCHAR}, 
+      #{startdistance,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.risk.plan.entity.CrossEdge" >
+    insert into crossedge
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="crossedgeid != null" >
+        crossedgeid,
+      </if>
+      <if test="cnodeid != null" >
+        cnodeid,
+      </if>
+      <if test="edgeid != null" >
+        edgeid,
+      </if>
+      <if test="startdistance != null" >
+        startdistance,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="crossedgeid != null" >
+        #{crossedgeid,jdbcType=VARCHAR},
+      </if>
+      <if test="cnodeid != null" >
+        #{cnodeid,jdbcType=VARCHAR},
+      </if>
+      <if test="edgeid != null" >
+        #{edgeid,jdbcType=VARCHAR},
+      </if>
+      <if test="startdistance != null" >
+        #{startdistance,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.risk.plan.entity.CrossEdge" >
+    update crossedge
+    <set >
+      <if test="cnodeid != null" >
+        cnodeid = #{cnodeid,jdbcType=VARCHAR},
+      </if>
+      <if test="edgeid != null" >
+        edgeid = #{edgeid,jdbcType=VARCHAR},
+      </if>
+      <if test="startdistance != null" >
+        startdistance = #{startdistance,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where crossedgeid = #{crossedgeid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.risk.plan.entity.CrossEdge" >
+    update crossedge
+    set cnodeid = #{cnodeid,jdbcType=VARCHAR},
+      edgeid = #{edgeid,jdbcType=VARCHAR},
+      startdistance = #{startdistance,jdbcType=VARCHAR}
+    where crossedgeid = #{crossedgeid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from crossedge
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+  </select>
+  <select id="findByParams" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from crossedge
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+    <if test="pageSize != null and startNum != null" >
+      limit #{pageSize} offset #{startNum}
+    </if>
+  </select>
+  <select id="findByParamsCount" resultType="int" parameterType="map" >
+    select count(*) from crossedge
+  </select>
+</mapper>
