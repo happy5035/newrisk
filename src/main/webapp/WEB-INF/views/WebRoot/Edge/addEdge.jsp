@@ -99,7 +99,7 @@ $( "#emername" ).change(function(){
 $( "#Tab1" ).on("change","#subemer",function(){         
 	 $.ajax({
 		type: "POST",
-		url: "findSubEmer?emerid="+encodeURI(encodeURI($(this).val())),
+		url: "findSecondSub?subid="+encodeURI(encodeURI($(this).val())),
 		cache: false,
 		async: false,
 		success: function(data){
@@ -111,8 +111,14 @@ $( "#Tab1" ).on("change","#subemer",function(){
 //风险清单项 
 var  i=0;
 function addRow(TabId){  
-//alert("风险清单项"+disasterName[i-1]);
-//获取要插入行的表格
+	 $.ajax({
+		type: "POST",
+		url: "findEmerSub?emerid="+encodeURI($("#emername").val()),
+		cache: false,
+		async: true,
+		success: function(data){
+			$("#subemer[name=subemer0]").html(data);			
+		}});
 var table = document.getElementById(TabId);
 //在最后一行插入一行
 var newRow = table.insertRow(table.rows.length);
@@ -121,8 +127,8 @@ var newCel1 = newRow.insertCell(0);
 var newCel2 = newRow.insertCell(1);
 
 
-newCel1.innerHTML = "<select id='subemer' name='subemer0'><c:forEach var='item' items='${sublist}'><option value='${item.subname}'>${item.subname}</option></c:forEach></select>";
-newCel2.innerHTML = "<select id='subemer1' name='subemer1'><c:forEach var='item' items='${sublist}'><option value='${item.subname}'>${item.subname}</option></c:forEach></select>";
+newCel1.innerHTML = "<select id='subemer' name='subemer0'></select>";
+newCel2.innerHTML = "<select id='subemer1' name='subemer1'></select>";
 
 i++;
 document.getElementById("length1").value = i;

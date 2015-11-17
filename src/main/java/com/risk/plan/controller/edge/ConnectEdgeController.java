@@ -138,7 +138,7 @@ public class ConnectEdgeController {
 			if (sublist != null && sublist.size() > 0) {
 				for (int i = 0; i < sublist.size(); i++) {
 					Sub type = sublist.get(i);
-					cSelect += "<option value=" + type.getSubname()
+					cSelect += "<option value=" + type.getSubid()
 							+ ">" + type.getSubname()+ "</option>";
 				}
 			} else {
@@ -148,4 +148,38 @@ public class ConnectEdgeController {
 		} catch (Exception e) {
 		}
 	}
+	
+	
+	
+	@ResponseBody
+	@RequestMapping("/findSecondSub")
+	public void findSecondSub(String subid, ModelMap modelmap) throws UnsupportedEncodingException{
+		
+		Users user=(Users)request.getSession().getAttribute("user");
+		String userid=user.getUserid();
+		String usertype=user.getUsertype();
+		subid=URLDecoder.decode(subid, "UTF-8");
+		String cSelect = "";
+		try {
+			Map<String, Object> params=new HashMap<String, Object>();
+			Sub sub1=subService.selectByPrimaryKey(subid);
+			String emerid=sub1.getEmerId();
+			params.put("emerid",emerid);	
+			List<Sub> sublist=subService.selectByEmerId(params);
+			modelmap.put("sublist", sublist);
+//			request.setAttribute("sublist", sublist);
+			if (sublist != null && sublist.size() > 0) {
+				for (int i = 0; i < sublist.size(); i++) {
+					Sub type = sublist.get(i);
+					cSelect += "<option value=" + type.getSubid()
+							+ ">" + type.getSubname()+ "</option>";
+				}
+			} else {
+				cSelect += "<option value=\"0\">该项目无子项目</option>";
+			}			
+		response.getWriter().write(cSelect);
+		} catch (Exception e) {
+		}
+	}
+	
 }

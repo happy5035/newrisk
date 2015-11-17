@@ -5,7 +5,7 @@
     <id column="subid" property="subid" jdbcType="VARCHAR" />
     <result column="subname" property="subname" jdbcType="VARCHAR" />
     <result column="subno" property="subno" jdbcType="VARCHAR" />
-    <result column="emername" property="emername" jdbcType="VARCHAR" />
+    <result column="emerid" property="emerid" jdbcType="VARCHAR" />
     <result column="people" property="people" jdbcType="VARCHAR" />
     <result column="money" property="money" jdbcType="VARCHAR" />
     <result column="goods" property="goods" jdbcType="VARCHAR" />
