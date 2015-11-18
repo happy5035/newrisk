@@ -133,7 +133,7 @@ public class ConnectEdgeController {
 			Map<String, Object> params=new HashMap<String, Object>();
 			params.put("emerid", emerid);
 			List<Sub> sublist=subService.selectByEmerId(params);
-			modelmap.put("sublist", sublist);
+			//modelmap.put("sublist", sublist);
 //			request.setAttribute("sublist", sublist);
 			if (sublist != null && sublist.size() > 0) {
 				for (int i = 0; i < sublist.size(); i++) {
@@ -166,7 +166,7 @@ public class ConnectEdgeController {
 			String emerid=sub1.getEmerId();
 			params.put("emerid",emerid);	
 			List<Sub> sublist=subService.selectByEmerId(params);
-			modelmap.put("sublist", sublist);
+		//	modelmap.put("sublist", sublist);
 //			request.setAttribute("sublist", sublist);
 			if (sublist != null && sublist.size() > 0) {
 				for (int i = 0; i < sublist.size(); i++) {
