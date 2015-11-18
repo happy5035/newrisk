@@ -122,6 +122,7 @@ function addRow(TabId){
 			var c=i-1;
 			var test=".subemer[name='subemer"+c+"']";
 			$(test).html(data);	
+			 $(test).change(); 
 		}});
 	
 var table = document.getElementById(TabId);
