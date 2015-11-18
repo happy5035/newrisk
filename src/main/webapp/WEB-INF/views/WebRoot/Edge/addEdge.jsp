@@ -96,18 +96,20 @@ $( "#emername" ).change(function(){
 			
 		}});
 	}); 
-$( "#Tab1" ).on("change","#subemer",function(){         
+$( "#Tab1" ).on("change","#subemer",function(e){         
 	 $.ajax({
 		type: "POST",
 		url: "findSecondSub?subid="+encodeURI(encodeURI($(this).val())),
 		cache: false,
 		async: false,
 		success: function(data){
+			var c=e.parentNode.parentNode.rowIndex-1;
+			test="#subemer1"+c+""
 			$("#subemer1[name=subemer1]").html(data);
 		}}); 
 	}); 
 
-});
+});//曾经括号放错位置
 //风险清单项 
 var  i=0;
 function addRow(TabId){  
@@ -128,7 +130,7 @@ var newCel2 = newRow.insertCell(1);
 
 
 newCel1.innerHTML = "<select id='subemer' name='subemer0'></select>";
-newCel2.innerHTML = "<select id='subemer1' name='subemer1'></select>";
+newCel2.innerHTML = "<select id='subemer1' name='subemer1'+i+''></select>";
 
 i++;
 document.getElementById("length1").value = i;
