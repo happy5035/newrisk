@@ -92,7 +92,7 @@ $( "#emername" ).change(function(){
 		cache: false,
 		async: false,
 		success: function(data){
-			$("#subemer[name=subemer0]").html(data);
+			$(".subemer").html(data);
 			
 		}});
 	}); 
@@ -103,9 +103,9 @@ $( "#Tab1" ).on("change","#subemer",function(e){
 		cache: false,
 		async: false,
 		success: function(data){
-			var c=e.parentNode.parentNode.rowIndex-1;
-			test="#subemer1"+c+""
-			$("#subemer1[name=subemer1]").html(data);
+			var c=e.target.parentNode.parentNode.rowIndex-1;
+			test="#subemer"+c+"";
+			$(test).html(data);
 		}}); 
 	}); 
 
@@ -119,8 +119,11 @@ function addRow(TabId){
 		cache: false,
 		async: true,
 		success: function(data){
-			$("#subemer[name=subemer0]").html(data);			
+			var c=i-1;
+			var test=".subemer[name='subemer"+c+"']";
+			$(test).html(data);	
 		}});
+	
 var table = document.getElementById(TabId);
 //在最后一行插入一行
 var newRow = table.insertRow(table.rows.length);
@@ -129,8 +132,8 @@ var newCel1 = newRow.insertCell(0);
 var newCel2 = newRow.insertCell(1);
 
 
-newCel1.innerHTML = "<select id='subemer' name='subemer0'></select>";
-newCel2.innerHTML = "<select id='subemer1' name='subemer1'+i+''></select>";
+newCel1.innerHTML = "<select class='subemer' id='subemer' name='subemer"+i+"'></select>";
+newCel2.innerHTML = "<select id='subemer"+i+"' ></select>";
 
 i++;
 document.getElementById("length1").value = i;
