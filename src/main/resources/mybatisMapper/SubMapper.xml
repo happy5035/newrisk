@@ -21,9 +21,17 @@
     from sub
     where subid = #{subid,jdbcType=VARCHAR}
   </select>
+  <select id="findArSubBySubids" resultMap="BaseResultMap" parameterType="map" >
+  	select * from sub where subid not in
+  	<foreach collection="list"  index="index" item="item" open="(" close=")" separator=",">
+  	#{item}
+  	</foreach>
+  	<if test="emerid != null">
+  	and emerid=#{emerid,jdbcType=VARCHAR}
+  	</if>
+  </select>
   
-  
-   <select id="selectByEmerId" resultMap="BaseResultMap" parameterType="map">
+   <select id="selectByEmerId" resultMap="BaseResultMap" parameterType="map" >
      select 
     *
     from sub 

@@ -20,6 +20,14 @@
   	select firstnodeid from edge 
   	where secondnodeid=#{secondnodeid,jdbcType=VARCHAR}
   </select>
+  <select id="findByFirstNodeid" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select * from edge 
+  	where firstnodeid=#{firstnodeid,jdbcType=VARCHAR}
+  </select>
+  <select id="findBySecondNodeid" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select * from edge 
+  	where secondnodeid=#{secondnodeid,jdbcType=VARCHAR}
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />

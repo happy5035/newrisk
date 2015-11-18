@@ -159,15 +159,25 @@ public class ConnectEdgeController {
 		String userid=user.getUserid();
 		String usertype=user.getUsertype();
 		subid=URLDecoder.decode(subid, "UTF-8");
+		
+		
+		
 		String cSelect = "";
 		try {
-			Map<String, Object> params=new HashMap<String, Object>();
+			/*
+			 * 迭代之前的节点
+			 */
+			
+			List<Sub> sublist=subService.findPreSubo(subid);
+			
+			/*Map<String, Object> params=new HashMap<String, Object>();
 			Sub sub1=subService.selectByPrimaryKey(subid);
-			String emerid=sub1.getEmerId();
-			params.put("emerid",emerid);	
-			List<Sub> sublist=subService.selectByEmerId(params);
-		//	modelmap.put("sublist", sublist);
-//			request.setAttribute("sublist", sublist);
+			if(sub1!=null){
+				String emerid=sub1.getEmerId();
+				params.put("emerid",emerid);
+			}
+				
+			List<Sub> sublist=subService.selectByEmerId(params);*/
 			if (sublist != null && sublist.size() > 0) {
 				for (int i = 0; i < sublist.size(); i++) {
 					Sub type = sublist.get(i);
@@ -179,6 +189,7 @@ public class ConnectEdgeController {
 			}			
 		response.getWriter().write(cSelect);
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	

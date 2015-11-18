@@ -23,4 +23,6 @@ public interface SubMapper extends BaseMapper<Sub>{
     
     
     public List<Sub> selectByEmerId(Map<String, Object> params);
+    
+    public List<Sub> findArSubBySubids(Map<String,Object> map);
 }
