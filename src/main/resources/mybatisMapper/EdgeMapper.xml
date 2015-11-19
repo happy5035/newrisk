@@ -38,6 +38,19 @@
     delete from edge
     where edgeid = #{edgeid,jdbcType=VARCHAR}
   </delete>
+  
+  <delete id="DeleteByfirstAndsecond" parameterType="java.lang.String" >
+    delete from edge
+    <where> 
+    <if test="firstnodeid != null">
+    and firstnodeid = #{firstnodeid,jdbcType=VARCHAR}
+    </if>
+    <if test="secondnodeid != null" >
+        and secondnodeid like #{secondnodeid,jdbcType=VARCHAR}
+    </if>
+    </where>
+  </delete>
+  
   <insert id="insert" parameterType="com.risk.plan.entity.Edge" >
     insert into edge (edgeid, secondnodeid, firstnodeid, 
       edgeno, edgename, edgetype, 

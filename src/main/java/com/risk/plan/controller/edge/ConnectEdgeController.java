@@ -16,14 +16,17 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.risk.plan.entity.Edge;
 import com.risk.plan.entity.Emergency;
 import com.risk.plan.entity.GoodsType;
 import com.risk.plan.entity.Sub;
 import com.risk.plan.entity.TranModel;
 import com.risk.plan.entity.Users;
+import com.risk.plan.service.box.edge.EdgeService;
 import com.risk.plan.service.box.emer.EmerTypeService;
 import com.risk.plan.service.box.emer.EmergencyService;
 import com.risk.plan.service.box.sub.SubService;
+import com.risk.plan.util.Identities;
 
 @Controller
 public class ConnectEdgeController {
@@ -34,6 +37,9 @@ public class ConnectEdgeController {
 	EmergencyService emergencyService;
 	@Autowired
 	SubService subService;
+	@Autowired
+	EdgeService edgeService;
+	
 	@Autowired
 	HttpServletResponse response;
 	//httpServlet
@@ -170,14 +176,7 @@ public class ConnectEdgeController {
 			
 			List<Sub> sublist=subService.findPreSubo(subid);
 			
-			/*Map<String, Object> params=new HashMap<String, Object>();
-			Sub sub1=subService.selectByPrimaryKey(subid);
-			if(sub1!=null){
-				String emerid=sub1.getEmerId();
-				params.put("emerid",emerid);
-			}
-				
-			List<Sub> sublist=subService.selectByEmerId(params);*/
+			
 			if (sublist != null && sublist.size() > 0) {
 				for (int i = 0; i < sublist.size(); i++) {
 					Sub type = sublist.get(i);
@@ -191,6 +190,61 @@ public class ConnectEdgeController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	
 	}
 	
+	
+	@ResponseBody
+	@RequestMapping("/saveEdgeOri")
+	public void saveEdgeOri(String subid,String subsid,ModelMap modelmap,Edge edge) throws UnsupportedEncodingException{
+		
+		Users user=(Users)request.getSession().getAttribute("user");
+		String userid=user.getUserid();
+		String usertype=user.getUsertype();
+		subid=URLDecoder.decode(subid, "UTF-8");
+		subsid=URLDecoder.decode(subsid, "UTF-8");
+		edge.setEdgeid(Identities.uuid2());
+		
+		String cSelect = "";
+		try {
+			
+			if (subid != null && subsid!=null) {
+				Map<String, Object> params=new HashMap<String, Object>();
+				edge.setFirstnodeid(subid);
+				edge.setSecondnodeid(subsid);
+				edgeService.insertSelective(edge);
+				
+			} else {
+				 modelmap.addAttribute("NoNodes", "保存失败");
+			}			
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("/deleteEdge")
+	public void deleteEdge(String subid,String subsid,ModelMap modelmap,Edge edge) throws UnsupportedEncodingException{
+		
+		Users user=(Users)request.getSession().getAttribute("user");
+		String userid=user.getUserid();
+		String usertype=user.getUsertype();
+		subid=URLDecoder.decode(subid, "UTF-8");
+		subsid=URLDecoder.decode(subsid, "UTF-8");
+		
+		String cSelect = "";
+		try {	
+			if (subid != null && subsid!=null) {				
+				edgeService.DeleteByfirstAndsecond(subid, subsid);
+				
+			} else {
+				 modelmap.addAttribute("NoNodes", "删除失败");
+			}			
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

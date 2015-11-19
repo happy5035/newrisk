@@ -43,6 +43,8 @@
     delete from sub
     where subid = #{subid,jdbcType=VARCHAR}
   </delete>
+ 
+  
   <insert id="insert" parameterType="com.risk.plan.entity.Sub" >
     insert into sub (subid, subname, subno, 
       emername, people, money, 

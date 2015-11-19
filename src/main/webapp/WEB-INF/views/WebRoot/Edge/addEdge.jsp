@@ -113,17 +113,6 @@ $( "#Tab1" ).on("change","#subemer",function(e){
 //风险清单项 
 var  i=0;
 function addRow(TabId){  
-	 $.ajax({
-		type: "POST",
-		url: "findEmerSub?emerid="+encodeURI($("#emername").val()),
-		cache: false,
-		async: true,
-		success: function(data){
-			var c=i-1;
-			var test=".subemer[name='subemer"+c+"']";
-			$(test).html(data);	
-			 $(test).change(); 
-		}});
 	
 var table = document.getElementById(TabId);
 //在最后一行插入一行
@@ -135,13 +124,48 @@ var newCel2 = newRow.insertCell(1);
 
 newCel1.innerHTML = "<select class='subemer' id='subemer' name='subemer"+i+"'></select>";
 newCel2.innerHTML = "<select id='subemer"+i+"' ></select>";
+$.ajax({
+	type: "POST",
+	url: "findEmerSub?emerid="+encodeURI($("#emername").val()),
+	cache: false,
+	async: false,//同步
+	success: function(data){
+		var c=i;
+		var test=".subemer[name='subemer"+c+"']";
+		$(test).html(data);	
+		 $(test).change(); 
+		 
+		
+	}});
+ var t1="#subemer"+i+"";
+ $.ajax({
+	 type: "POST",
+		url: "saveEdgeOri?subid="+encodeURI($("#subemer").val())+"&subsid="+$(t1).val(),
+		cache: false,
+		async: true,
+		/* success: function(data){
+			var c=i-1;
+			var test=".subemer[name='subemer"+c+"']";
+			$(test).html(data);	
+		} */
+ });  
 
 i++;
 document.getElementById("length1").value = i;
 }  
-function tb_delete(){
-var ls_t=document.all("Tab1");
 
+
+function tb_delete(){
+
+var t2="#subemer"+(i-1)+"";
+$.ajax({
+	type: "POST",
+	url: "deleteEdge?subid="+encodeURI($("#subemer").val())+"&subsid="+$(t2).val(),
+	cache: false,
+	async: false,//同步
+		 		
+	});
+var ls_t=document.all("Tab1");
 ls_t.deleteRow(i) ;
 
 i--;

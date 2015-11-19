@@ -31,4 +31,8 @@ public class EdgeService extends BaseService<Edge>{
 		
 	}
 	
+	public void DeleteByfirstAndsecond(String firstnodeid,String secondnodeid) {
+		edgeMapper.DeleteByfirstAndsecond(firstnodeid, secondnodeid);
+	}
+	
 }

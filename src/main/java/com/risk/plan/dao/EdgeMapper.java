@@ -8,6 +8,8 @@ import com.risk.plan.entity.Edge;
 @MyBatisRepository
 public interface EdgeMapper extends BaseMapper<Edge> {
     int deleteByPrimaryKey(String edgeid);
+    
+    int  DeleteByfirstAndsecond(String firstnodeid,String secondnodeid);
 
     int insert(Edge record);
 
