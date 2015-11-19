@@ -48,3 +48,13 @@ src/main/resources/rebel.xml
 target/m2e-wtp/web-resources/META-INF/maven/com.yuan/risk/pom.properties
 src/main/resources/application.properties
 src/main/resources/rebel.xml
+<<<<<<< HEAD
+src/main/resources/application.properties
+*.properties
+target/classes/com/risk/plan/dao/EdgeMapper.class
+target/classes/rebel.xml
+src/main/resources/application.properties
+target/classes/application.properties
+=======
+src/main/webapp/WEB-INF/views/WebRoot/Edge/addEdge.jsp
+>>>>>>> 9d387d746e0ffc2b50890d0394f3c1e19e3eeb1a
