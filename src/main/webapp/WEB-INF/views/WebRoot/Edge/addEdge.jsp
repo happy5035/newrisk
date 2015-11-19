@@ -113,6 +113,17 @@ $( "#Tab1" ).on("change","#subemer",function(e){
 //风险清单项 
 var  i=0;
 function addRow(TabId){  
+	 $.ajax({
+		type: "POST",
+		url: "findEmerSub?emerid="+encodeURI($("#emername").val()),
+		cache: false,
+		async: true,
+		success: function(data){
+			var c=i-1;
+			var test=".subemer[name='subemer"+c+"']";
+			$(test).html(data);	  
+			 $(test).change(); 
+		}});
 	
 var table = document.getElementById(TabId);
 //在最后一行插入一行

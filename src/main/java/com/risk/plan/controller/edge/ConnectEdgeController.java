@@ -3,6 +3,7 @@ package com.risk.plan.controller.edge;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.risk.plan.common.EdgeInfo;
+import com.risk.plan.common.NodesInfo;
 import com.risk.plan.entity.Edge;
 import com.risk.plan.entity.Emergency;
 import com.risk.plan.entity.GoodsType;
@@ -39,7 +42,6 @@ public class ConnectEdgeController {
 	SubService subService;
 	@Autowired
 	EdgeService edgeService;
-	
 	@Autowired
 	HttpServletResponse response;
 	//httpServlet
@@ -247,4 +249,41 @@ public class ConnectEdgeController {
 			e.printStackTrace();
 		}
 	}
+	@RequestMapping("/getAllArea")
+	public String getAllArea(){
+		
+		return "WebRoot/Edge/allEdge";
+	}
+	@ResponseBody
+	@RequestMapping("/getEdgeInfo")
+	public Map<String, Object>  getEdgeInfo(){
+		List<NodesInfo> nodesInfos=new ArrayList<NodesInfo>();
+		List<EdgeInfo> edgeInfos=new ArrayList<EdgeInfo>();
+		Map<String, Object> modelmap=new HashMap<String, Object>();
+		String emerid="4d376e9c235847b2b39fef9ff3ee86d1";
+		List<Edge> edges=edgeService.selectAll();
+		if(edges==null) return null;
+		for (Edge edge : edges) {
+			EdgeInfo edgeinfo=new EdgeInfo();
+			edgeinfo.setFrom(edge.getFirstnodeid());
+			edgeinfo.setTo(edge.getSecondnodeid());
+//			edgeinfo.setName(edge.getEdgeid());
+			edgeInfos.add(edgeinfo);
+		}
+		Map<String, Object> params=new HashMap<String, Object>();
+		params.put("emerid", emerid);
+		List<Sub> subs=subService.selectByEmerId(params);
+		if(subs == null) return null;
+		for (int i = 0; i < subs.size(); i++) {
+			NodesInfo nodesinfo=new NodesInfo();
+			Sub sub=subs.get(i);
+			nodesinfo.setId(sub.getSubid());
+			nodesinfo.setName(sub.getSubno());
+			nodesInfos.add(nodesinfo);
+		}
+		modelmap.put("nodes", nodesInfos);
+		modelmap.put("edges", edgeInfos);
+		return modelmap;
+	}
+	
 }
