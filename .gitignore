@@ -48,3 +48,4 @@ src/main/resources/rebel.xml
 target/m2e-wtp/web-resources/META-INF/maven/com.yuan/risk/pom.properties
 src/main/resources/application.properties
 src/main/resources/rebel.xml
+src/main/webapp/WEB-INF/views/WebRoot/Edge/addEdge.jsp

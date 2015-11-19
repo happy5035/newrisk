@@ -238,8 +238,11 @@ public class ConnectEdgeController {
 		
 		String cSelect = "";
 		try {	
-			if (subid != null && subsid!=null) {				
-				edgeService.DeleteByfirstAndsecond(subid, subsid);
+			if (subid != null && subsid!=null) {
+				Map<String, Object> params=new HashMap<String, Object>();
+				params.put("firstnodeid",subid);
+				params.put("secondnodeid", subsid);
+				edgeService.DeleteByfirstAndsecond(params);
 				
 			} else {
 				 modelmap.addAttribute("NoNodes", "删除失败");

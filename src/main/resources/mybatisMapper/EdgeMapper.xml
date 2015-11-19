@@ -39,14 +39,17 @@
     where edgeid = #{edgeid,jdbcType=VARCHAR}
   </delete>
   
-  <delete id="DeleteByfirstAndsecond" parameterType="java.lang.String" >
+  
+ 
+  
+  <delete id="DeleteByfirstAndsecond"  parameterType="map">
     delete from edge
     <where> 
     <if test="firstnodeid != null">
     and firstnodeid = #{firstnodeid,jdbcType=VARCHAR}
     </if>
     <if test="secondnodeid != null" >
-        and secondnodeid like #{secondnodeid,jdbcType=VARCHAR}
+        and secondnodeid = #{secondnodeid,jdbcType=VARCHAR}
     </if>
     </where>
   </delete>

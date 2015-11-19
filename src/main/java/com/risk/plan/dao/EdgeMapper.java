@@ -1,15 +1,18 @@
 package com.risk.plan.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.risk.plan.common.BaseMapper;
 import com.risk.plan.common.MyBatisRepository;
 import com.risk.plan.entity.Edge;
+import com.risk.plan.entity.Sub;
 @MyBatisRepository
 public interface EdgeMapper extends BaseMapper<Edge> {
     int deleteByPrimaryKey(String edgeid);
     
-    int  DeleteByfirstAndsecond(String firstnodeid,String secondnodeid);
+    int  DeleteByfirstAndsecond(Map<String, Object> params);
+   
 
     int insert(Edge record);
 
