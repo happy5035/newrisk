@@ -25,6 +25,7 @@ import com.risk.plan.entity.GoodsType;
 import com.risk.plan.entity.Sub;
 import com.risk.plan.entity.TranModel;
 import com.risk.plan.entity.Users;
+import com.risk.plan.exception.LoopExistException;
 import com.risk.plan.service.box.edge.EdgeService;
 import com.risk.plan.service.box.emer.EmerTypeService;
 import com.risk.plan.service.box.emer.EmergencyService;
@@ -161,7 +162,7 @@ public class ConnectEdgeController {
 	
 	@ResponseBody
 	@RequestMapping("/findSecondSub")
-	public void findSecondSub(String subid, ModelMap modelmap) throws UnsupportedEncodingException{
+	public void findSecondSub(String subid, ModelMap modelmap) throws Exception{
 		
 		Users user=(Users)request.getSession().getAttribute("user");
 		String userid=user.getUserid();
@@ -189,10 +190,11 @@ public class ConnectEdgeController {
 				cSelect += "<option value=\"0\">该项目无子项目</option>";
 			}			
 		response.getWriter().write(cSelect);
-		} catch (Exception e) {
+		}catch(LoopExistException e){
+			cSelect="<option value=\"0\">"+e.toString()+"</option>";
+			response.getWriter().write(cSelect);
 			e.printStackTrace();
 		}
-	
 	}
 	
 	
