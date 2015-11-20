@@ -220,17 +220,14 @@ public class ConnectEdgeController {
 					edge.setFirstnodeid(subid);
 					edge.setSecondnodeid(subsid);
 					edgeService.insertSelective(edge);
-					return edgeid;
 				}
 				
 			} else {
 				 modelmap.addAttribute("NoNodes", "保存失败");
-					return null;
 			}			
 		
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
 		}
 	}
 	
