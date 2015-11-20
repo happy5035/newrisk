@@ -30,6 +30,13 @@ public class SubService extends BaseService<Sub>{
 		return subMapper.selectByEmerId(params);
 			
 }
+	/**
+	 * 	
+	* @Title: findPreSubs 
+	* @Description: 迭代遍历
+	* @param subid
+	* @return List<String>    返回类型
+	 */
 	public List<String> findPreSubs(String subid){
 		if(isLoop) return null;
 		List<String> subs=new ArrayList<String>();
@@ -63,7 +70,14 @@ public class SubService extends BaseService<Sub>{
 		}
 		return subs;
 	}
-	
+	/**
+	 * 
+	* @Title: findPreSubo 
+	* @Description: 通过subid查找前向节点并检测是否成环
+	* @param subid
+	* @return
+	* @throws LoopExistException List<Sub>    返回类型
+	 */
 	public List<Sub> findPreSubo(String subid) throws LoopExistException{
 		if(subid == null) return null;
 		this.subid=subid;
@@ -91,5 +105,7 @@ public class SubService extends BaseService<Sub>{
 		}
 		
 		return null;
-	}
+	} 
+	
+	
 }

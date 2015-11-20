@@ -58,4 +58,8 @@ target/classes/com/risk/plan/dao/EdgeMapper.class
 target/classes/rebel.xml
 src/main/resources/application.properties
 target/classes/application.properties
+<<<<<<< HEAD
+target/classes/applicationContext.xml
+=======
 >>>>>>> origin/master
+>>>>>>> c39cf9cae69da4b92d11595e6bc507b1782e9eb7

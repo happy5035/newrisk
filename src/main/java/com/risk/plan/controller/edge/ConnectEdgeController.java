@@ -200,7 +200,7 @@ public class ConnectEdgeController {
 	
 	@ResponseBody
 	@RequestMapping("/saveEdgeOri")
-	public String saveEdgeOri(String subid,String subsid,ModelMap modelmap,Edge edge) throws UnsupportedEncodingException{
+	public void saveEdgeOri(String subid,String subsid,ModelMap modelmap,Edge edge) throws UnsupportedEncodingException{
 		
 		Users user=(Users)request.getSession().getAttribute("user");
 		String userid=user.getUserid();
@@ -214,12 +214,23 @@ public class ConnectEdgeController {
 		try {
 			
 			if (subid != null && subsid!=null) {
+<<<<<<< HEAD
 				if(subid.equals(subsid)) return null;
 				Map<String, Object> params=new HashMap<String, Object>();
 				edge.setFirstnodeid(subid);
 				edge.setSecondnodeid(subsid);
 				edgeService.insertSelective(edge);
 				return edgeid;
+=======
+				if(!"".equals(subsid.trim())&&!"".equals(subid.trim())&&!subid.equals("0")&&!subsid.equals("0"))
+				{
+					Map<String, Object> params=new HashMap<String, Object>();
+					edge.setFirstnodeid(subid);
+					edge.setSecondnodeid(subsid);
+					edgeService.insertSelective(edge);
+					return edgeid;
+				}
+>>>>>>> origin/master
 				
 			} else {
 				 modelmap.addAttribute("NoNodes", "保存失败");
@@ -335,7 +346,7 @@ public class ConnectEdgeController {
 		List<NodesInfo> nodesInfos=new ArrayList<NodesInfo>();
 		List<EdgeInfo> edgeInfos=new ArrayList<EdgeInfo>();
 		Map<String, Object> modelmap=new HashMap<String, Object>();
-		String emerid="4d376e9c235847b2b39fef9ff3ee86d1";
+		String emerid="8a16d07ec5b94782969f05b2e50669cf";
 		List<Edge> edges=edgeService.selectAll();
 		if(edges==null) return null;
 		for (Edge edge : edges) {
