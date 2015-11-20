@@ -96,8 +96,28 @@ $( "#emername" ).change(function(){
 			
 		}});
 	}); 
-$( "#Tab1" ).on("change","#subemer",function(e){         
-	 $.ajax({
+$( "#Tab1" ).on("change","#subemer",function(e){      
+	var pre=$(this).val();
+	test1="#subemer"+(i-1)+"";
+	var end=$(test1).val();
+	
+	$.ajax({
+		type: "POST",
+		url: "deletesecond?edgeid="+$(this).parent().parent().attr("id"),
+		cache: false,
+		async: false,
+		});
+	if(typeof(pre)!=='undefined'&&typeof(end)!=='undefined')
+	if($.trim(pre) != $.trim(end)){
+		$.ajax({
+			type: "POST",
+			url: "updatefisrt?subid="+encodeURI(encodeURI($(this).val()))+"&subaid="+end+"&edgeid="+$(this).parent().parent().attr("id"),
+			cache: false,
+			async: false,
+			});
+	}
+	
+	$.ajax({
 		type: "POST",
 		url: "findSecondSub?subid="+encodeURI(encodeURI($(this).val())),
 		cache: false,
@@ -107,7 +127,7 @@ $( "#Tab1" ).on("change","#subemer",function(e){
 			test="#subemer"+c+"";
 			$(test).html(data);
 		}}); 
-	}); 
+});  
 
 });//曾经括号放错位置
 //风险清单项 
@@ -167,11 +187,12 @@ $.ajax({
 		url: "saveEdgeOri?subid="+encodeURI($("#subemer").val())+"&subsid="+$(t1).val(),
 		cache: false,
 		async: true,
-		/* success: function(data){
+		 success: function(data){
 			var c=i-1;
 			var test=".subemer[name='subemer"+c+"']";
-			$(test).html(data);	
-		} */
+			var trm=$(test).parent().parent();
+			trm.attr("id",data);
+		} 
  });  
 
 i++;
