@@ -198,14 +198,15 @@ public class ConnectEdgeController {
 	
 	@ResponseBody
 	@RequestMapping("/saveEdgeOri")
-	public void saveEdgeOri(String subid,String subsid,ModelMap modelmap,Edge edge) throws UnsupportedEncodingException{
+	public String saveEdgeOri(String subid,String subsid,ModelMap modelmap,Edge edge) throws UnsupportedEncodingException{
 		
 		Users user=(Users)request.getSession().getAttribute("user");
 		String userid=user.getUserid();
 		String usertype=user.getUsertype();
 		subid=URLDecoder.decode(subid, "UTF-8");
 		subsid=URLDecoder.decode(subsid, "UTF-8");
-		edge.setEdgeid(Identities.uuid2());
+		String edgeid=Identities.uuid2();
+		edge.setEdgeid(edgeid);
 		
 		String cSelect = "";
 		try {
@@ -215,13 +216,16 @@ public class ConnectEdgeController {
 				edge.setFirstnodeid(subid);
 				edge.setSecondnodeid(subsid);
 				edgeService.insertSelective(edge);
+				return edgeid;
 				
 			} else {
 				 modelmap.addAttribute("NoNodes", "保存失败");
+					return null;
 			}			
 		
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
 	}
 	
@@ -252,6 +256,62 @@ public class ConnectEdgeController {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping("/deletesecond1")
+	public void deletesecond(String edgeid,ModelMap modelmap,Edge edge) throws UnsupportedEncodingException{
+		
+		Users user=(Users)request.getSession().getAttribute("user");
+		String userid=user.getUserid();
+		String usertype=user.getUsertype();
+		edgeid=URLDecoder.decode(edgeid, "UTF-8");
+		String cSelect = "";
+		try {	
+			if (edgeid != null ) {
+				Map<String, Object> params=new HashMap<String, Object>();
+				//edge.setEdgeid(edgeid);
+				edge=edgeService.selectByPrimaryKey(edgeid);
+				edge.setSecondnodeid(null);
+				
+			} else {
+				 modelmap.addAttribute("NoNodes", "删除失败");
+			}			
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("/updatefisrt")
+	public void updatefisrt(String subid,String subaid,String edgeid,ModelMap modelmap,Edge edge) throws UnsupportedEncodingException{
+		
+		Users user=(Users)request.getSession().getAttribute("user");
+		String userid=user.getUserid();
+		String usertype=user.getUsertype();
+		subid=URLDecoder.decode(subid, "UTF-8");
+		edgeid=URLDecoder.decode(edgeid, "UTF-8");
+		String cSelect = "";
+		try {	
+			if (subid != null &&subaid!=null) {
+				if(!subid.trim().equals(subaid.trim())){
+					Map<String, Object> params=new HashMap<String, Object>();
+					edge.setFirstnodeid(subid);
+					edge.setEdgeid(edgeid);
+					edgeService.updateByPrimaryKeySelective(edge);
+				}
+				
+			} else {
+				 modelmap.addAttribute("NoNodes", "删除失败");
+			}			
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	@RequestMapping("/getAllArea")
 	public String getAllArea(){
 		
