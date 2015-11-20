@@ -53,7 +53,7 @@
 			<tx:method name="select*" propagation="REQUIRED" read-only="true" />
 			<tx:method name="paged*" propagation="REQUIRED" read-only="true" />
 			<tx:method name="find*" propagation="REQUIRED" read-only="true" />
-			<tx:method name="*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="*" propagation="REQUIRED"  />
 		</tx:attributes>
 	</tx:advice>
 	<aop:config>
