@@ -221,7 +221,6 @@ public class ConnectEdgeController {
 					edge.setSecondnodeid(subsid);
 					edgeService.insertSelective(edge);
 				}
-				
 			} else {
 				 modelmap.addAttribute("NoNodes", "保存失败");
 			}			
@@ -312,7 +311,16 @@ public class ConnectEdgeController {
 			e.printStackTrace();
 		}
 	}
-	
+	@ResponseBody
+	@RequestMapping("/updateSecond")
+	public void updateSecond(String subsid,Edge edge){
+		if(subsid!=null){
+			if(!"".equals(subsid.trim())){
+				edge.setSecondnodeid(subsid);
+				edgeService.updateBySecondid(edge);
+			}
+		}
+	}
 	
 	@RequestMapping("/getAllArea")
 	public String getAllArea(){

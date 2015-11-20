@@ -35,5 +35,7 @@ public class EdgeService extends BaseService<Edge>{
 	public void DeleteByfirstAndsecond(Map<String, Object> params) {
 		edgeMapper.DeleteByfirstAndsecond(params);
 	}
-	
+	public int updateBySecondid(Edge edge){
+		return edgeMapper.updateBySecondid(edge);
+	}
 }

@@ -125,6 +125,15 @@
       </if>
     </trim>
   </insert>
+  <update id="updateBySecondid" parameterType="com.risk.plan.entity.Edge">
+  update edge 
+  <set>
+  <if test="secondnodeid != null" >
+        secondnodeid = #{secondnodeid,jdbcType=VARCHAR},
+   </if>
+  </set>
+  where edgeid=#{edgeid,jdbcType=VARCHAR}
+  </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.risk.plan.entity.Edge" >
     update edge
     <set >
