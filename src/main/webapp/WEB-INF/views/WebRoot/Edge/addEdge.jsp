@@ -148,7 +148,20 @@ $.ajax({
 		 
 		
 	}});
- var t1="#subemer"+i+"";
+ var t1=".subemer[name='subemer"+i+"']";
+ $(t1).click(function(e){
+	 $.ajax({
+		 type: "POST",
+			url: "findFirstSub?subid="+$(this).parent().parent().attr("id"),
+			cache: false,
+			async: true,
+			/* success: function(data){
+				var c=i-1;
+				var test=".subemer[name='subemer"+c+"']";
+				$(test).html(data);	
+			} */
+	 });  
+ })
  $.ajax({
 	 type: "POST",
 		url: "saveEdgeOri?subid="+encodeURI($("#subemer").val())+"&subsid="+$(t1).val(),
