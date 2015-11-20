@@ -29,4 +29,6 @@ public interface EdgeMapper extends BaseMapper<Edge> {
     List<Edge> findByFirstNodeid(String firstnodeid);
     
     List<Edge> findBySecondNodeid(String secondnodeid);
+    
+    int updateBySecondid(Edge edge);
 }

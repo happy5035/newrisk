@@ -127,12 +127,25 @@ $( "#Tab1" ).on("change","#subemer",function(e){
 			test="#subemer"+c+"";
 			$(test).html(data);
 		}}); 
-});  
+}); 
+var test2;
+$( "#Tab1" ).on("change",test2,function(e){
+	var test="#subemer"+(i-1)+"";
+	$.ajax({
+		type: "POST",
+		url: "updateSecond?subsid="+encodeURI(encodeURI($(test).val()))+"&edgeid="+$(test).parent().parent().attr("id"),
+		cache: false,
+		async: false,
+		success: function(data){
+			
+		}});
+	}); 
 
 });//曾经括号放错位置
 //风险清单项 
 var  i=0;
-function addRow(TabId){  
+function addRow(TabId){ 
+	test2="#subemer"+i+"";
 	 $.ajax({
 		type: "POST",
 		url: "findEmerSub?emerid="+encodeURI($("#emername").val()),

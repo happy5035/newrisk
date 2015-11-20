@@ -214,6 +214,7 @@ public class ConnectEdgeController {
 		try {
 			
 			if (subid != null && subsid!=null) {
+				if(subid.equals(subsid)) return null;
 				Map<String, Object> params=new HashMap<String, Object>();
 				edge.setFirstnodeid(subid);
 				edge.setSecondnodeid(subsid);
@@ -312,7 +313,16 @@ public class ConnectEdgeController {
 			e.printStackTrace();
 		}
 	}
-	
+	@ResponseBody
+	@RequestMapping("/updateSecond")
+	public void updateSecond(String subsid,Edge edge){
+		if(subsid!=null){
+			if(!"".equals(subsid.trim())){
+				edge.setSecondnodeid(subsid);
+				edgeService.updateBySecondid(edge);
+			}
+		}
+	}
 	
 	@RequestMapping("/getAllArea")
 	public String getAllArea(){
